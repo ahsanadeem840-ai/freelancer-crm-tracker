@@ -69,6 +69,8 @@ Most enterprise CRM software is bloated, overly complex, and expensive for solo 
 
 The system utilizes 6 core MongoDB collections designed with strict Mongoose validation schemas, indexes, and referential integrity:
 
+![Freelance CRM Schema Architecture](docs/schema-diagram.svg)
+
 ```mermaid
 erDiagram
     User ||--o{ Client : "manages"
@@ -82,7 +84,11 @@ erDiagram
     Project ||--o{ Invoice : "linked with"
 ```
 
-> 📄 **Detailed Specifications:** Review field types, validation rules, relationships, and indexing in the [Database Planning & Schema Architecture Guide](docs/DATABASE_SCHEMA.md).
+> 📄 **Detailed Documentation & Diagrams:**
+> - [Database Planning & Schema Specs (Din 1)](docs/DATABASE_SCHEMA.md)
+> - [Schema Relationships & Integrity Blueprint (Din 2)](docs/SCHEMA_RELATIONSHIPS.md)
+> - [Interactive Excalidraw Diagram File](docs/schema-diagram.excalidraw) (Open on [excalidraw.com](https://excalidraw.com))
+> - [High-Resolution SVG Vector Diagram](docs/schema-diagram.svg)
 
 ---
 
@@ -93,10 +99,13 @@ This project is built following an intensive 22-day production roadmap (1 focuse
 ### Phase 1: Planning & Architecture
 - [x] **Din 1: Database Planning**
   - [x] Identify MongoDB collections: `User`, `Client`, `Project`, `Task`, `Invoice`, `Notification`
-  - [x] Finalize data types, relationships, constraints, and compound indexes ([docs/DATABASE_SCHEMA.md](docs/DATABASE_SCHEMA.md))
-- [ ] **Din 2: Backend Setup & Environment Configuration**
+  - [x] Finalize data types, constraints, and compound indexes ([docs/DATABASE_SCHEMA.md](docs/DATABASE_SCHEMA.md))
+- [x] **Din 2: Schema Relationships & Visual Diagramming**
+  - [x] Collections k beech relationship map karein (`Project -> Tasks`, `Client -> Projects`, etc.) ([docs/SCHEMA_RELATIONSHIPS.md](docs/SCHEMA_RELATIONSHIPS.md))
+  - [x] Excalidraw / visual schema diagram banayein ([docs/schema-diagram.excalidraw](docs/schema-diagram.excalidraw), [docs/schema-diagram.svg](docs/schema-diagram.svg))
+- [ ] **Din 3: Backend Setup & Environment Configuration**
   - Node.js & Express server boilerplate, environment variables, security headers (`helmet`, `cors`)
-- [ ] **Din 3: Database Connection & Mongoose Schemas**
+- [ ] **Din 4: Database Connection & Mongoose Schemas**
   - MongoDB Atlas / local connection, schema models implementation
 
 ### Phase 2: Authentication & Security

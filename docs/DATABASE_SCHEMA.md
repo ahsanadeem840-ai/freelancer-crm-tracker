@@ -4,11 +4,20 @@
 **Roadmap Stage:** Din 1 (Database Planning)  
 **Database:** MongoDB (Mongoose ODM)  
 
+> 🔗 **Related Architecture Guides:**
+> - [Schema Relationships & Relational Integrity Blueprint (Din 2)](SCHEMA_RELATIONSHIPS.md)
+> - [Interactive Excalidraw Diagram File](schema-diagram.excalidraw)
+> - [High-Resolution SVG Architecture Diagram](schema-diagram.svg)
+
 ---
 
 ## 1. Overview & Architecture
 
 Freelance CRM & Project Tracker ka data model freelancers, agencies, unke clients, ongoing projects, tasks, aur billing/invoices ko seamlessly connect karne ke liye design kiya gaya hai.
+
+### Architecture & Relationships Overview
+
+![Freelance CRM Schema Diagram](schema-diagram.svg)
 
 ### Entity Relationship Diagram (ERD)
 

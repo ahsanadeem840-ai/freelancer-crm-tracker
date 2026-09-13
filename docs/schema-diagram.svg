@@ -1,0 +1,486 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1340 980" width="100%" height="100%" style="background-color: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="userGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="notifGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="projGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+    <linearGradient id="taskGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#7e22ce" />
+    </linearGradient>
+    <linearGradient id="invGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+
+    <!-- Filters for drop shadow -->
+    <filter id="cardShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.45" />
+    </filter>
+
+    <!-- Marker arrows -->
+    <marker id="arrowUserClient" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#10b981" />
+    </marker>
+    <marker id="arrowUserNotif" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#f59e0b" />
+    </marker>
+    <marker id="arrowUserInv" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#f43f5e" />
+    </marker>
+    <marker id="arrowClientProj" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#3b82f6" />
+    </marker>
+    <marker id="arrowProjTask" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#a855f7" />
+    </marker>
+    <marker id="arrowClientInv" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#f43f5e" />
+    </marker>
+    <marker id="arrowProjInv" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#f43f5e" />
+    </marker>
+  </defs>
+
+  <!-- Title Header -->
+  <g transform="translate(60, 45)">
+    <text x="0" y="0" fill="#f8fafc" font-size="24" font-weight="700" letter-spacing="0.5">Freelance CRM &amp; Project Tracker — Database Schema Relationships</text>
+    <text x="0" y="24" fill="#94a3b8" font-size="14" font-weight="400">Din 2 Architecture Blueprint: Relational Integrity, Foreign Keys (ObjectId refs), and Cardinality</text>
+  </g>
+
+  <!-- RELATIONSHIP CONNECTORS (Background Layer) -->
+  <g fill="none" stroke-width="2.5" stroke-dasharray="6,4">
+    <!-- User -> Client (1 : N) -->
+    <path d="M 380 180 L 480 180" stroke="#10b981" marker-end="url(#arrowUserClient)" />
+    
+    <!-- User -> Notification (1 : N) -->
+    <path d="M 380 130 C 430 110, 840 110, 920 130" stroke="#f59e0b" marker-end="url(#arrowUserNotif)" />
+
+    <!-- User -> Invoice (1 : N) -->
+    <path d="M 220 440 L 220 540" stroke="#f43f5e" marker-end="url(#arrowUserInv)" />
+
+    <!-- Client -> Project (1 : N) -->
+    <path d="M 640 440 L 640 540" stroke="#3b82f6" marker-end="url(#arrowClientProj)" />
+
+    <!-- Project -> Task (1 : N) -->
+    <path d="M 800 680 L 920 680" stroke="#a855f7" marker-end="url(#arrowProjTask)" />
+
+    <!-- Client -> Invoice (1 : N) -->
+    <path d="M 480 340 C 420 380, 400 480, 380 580" stroke="#f43f5e" marker-end="url(#arrowClientInv)" />
+
+    <!-- Project -> Invoice (1 : N optional) -->
+    <path d="M 480 720 L 380 720" stroke="#f43f5e" marker-end="url(#arrowProjInv)" />
+  </g>
+
+  <!-- RELATIONSHIP BADGES / LABELS -->
+  <g font-size="11" font-weight="600" text-anchor="middle">
+    <!-- User -> Client -->
+    <rect x="395" y="166" width="70" height="22" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+    <text x="430" y="181" fill="#a7f3d0">1 : N</text>
+
+    <!-- User -> Notif -->
+    <rect x="620" y="96" width="105" height="22" rx="6" fill="#78350f" stroke="#f59e0b" stroke-width="1" />
+    <text x="672" y="111" fill="#fde68a">1 : N (receives)</text>
+
+    <!-- User -> Invoice -->
+    <rect x="180" y="475" width="80" height="22" rx="6" fill="#881337" stroke="#f43f5e" stroke-width="1" />
+    <text x="220" y="490" fill="#fecdd3">1 : N (issues)</text>
+
+    <!-- Client -> Project -->
+    <rect x="590" y="475" width="100" height="22" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1" />
+    <text x="640" y="490" fill="#bfdbfe">1 : N (owns)</text>
+
+    <!-- Project -> Task -->
+    <rect x="825" y="666" width="70" height="22" rx="6" fill="#581c87" stroke="#a855f7" stroke-width="1" />
+    <text x="860" y="681" fill="#e9d5ff">1 : N</text>
+
+    <!-- Client -> Invoice -->
+    <rect x="365" y="420" width="110" height="22" rx="6" fill="#881337" stroke="#f43f5e" stroke-width="1" />
+    <text x="420" y="435" fill="#fecdd3">1 : N (billed to)</text>
+
+    <!-- Project -> Invoice -->
+    <rect x="395" y="706" width="70" height="22" rx="6" fill="#881337" stroke="#f43f5e" stroke-width="1" />
+    <text x="430" y="721" fill="#fecdd3">1 : N</text>
+  </g>
+
+  <!-- ==================== CARD 1: USER ==================== -->
+  <g transform="translate(60, 90)" filter="url(#cardShadow)">
+    <rect width="320" height="350" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <!-- Header -->
+    <rect width="320" height="46" rx="14" fill="url(#userGrad)" />
+    <rect y="32" width="320" height="14" fill="url(#userGrad)" />
+    <text x="16" y="29" fill="#ffffff" font-size="16" font-weight="700">User</text>
+    <text x="290" y="29" fill="#e0e7ff" font-size="12" font-weight="600" text-anchor="end">users</text>
+
+    <!-- Fields -->
+    <g transform="translate(16, 68)" font-size="12" fill="#cbd5e1">
+      <!-- PK -->
+      <g>
+        <rect x="0" y="-12" width="26" height="18" rx="4" fill="#dc2626" />
+        <text x="13" y="1" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">PK</text>
+        <text x="36" y="1" font-weight="600" fill="#f8fafc">_id</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">ObjectId</text>
+      </g>
+      <g transform="translate(0, 26)">
+        <text x="36" y="1" font-weight="500">name</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">String (req)</text>
+      </g>
+      <g transform="translate(0, 52)">
+        <text x="36" y="1" font-weight="500">email</text>
+        <text x="280" y="1" fill="#38bdf8" text-anchor="end">String (unique)</text>
+      </g>
+      <g transform="translate(0, 78)">
+        <text x="36" y="1" font-weight="500">password</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">String (bcrypt)</text>
+      </g>
+      <g transform="translate(0, 104)">
+        <text x="36" y="1" font-weight="500">role</text>
+        <text x="280" y="1" fill="#fbbf24" text-anchor="end">Enum</text>
+      </g>
+      <g transform="translate(0, 130)">
+        <text x="36" y="1" font-weight="500">businessName</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">String</text>
+      </g>
+      <g transform="translate(0, 156)">
+        <text x="36" y="1" font-weight="500">hourlyRate / currency</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">Number / USD</text>
+      </g>
+      <g transform="translate(0, 182)">
+        <text x="36" y="1" font-weight="500">stripeAccountId</text>
+        <text x="280" y="1" fill="#a78bfa" text-anchor="end">String</text>
+      </g>
+      <g transform="translate(0, 208)">
+        <text x="36" y="1" font-weight="500">skills</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">Array[String]</text>
+      </g>
+      <g transform="translate(0, 234)">
+        <text x="36" y="1" font-weight="500">createdAt / updatedAt</text>
+        <text x="280" y="1" fill="#64748b" text-anchor="end">Timestamps</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== CARD 2: CLIENT ==================== -->
+  <g transform="translate(480, 90)" filter="url(#cardShadow)">
+    <rect width="320" height="350" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <!-- Header -->
+    <rect width="320" height="46" rx="14" fill="url(#clientGrad)" />
+    <rect y="32" width="320" height="14" fill="url(#clientGrad)" />
+    <text x="16" y="29" fill="#ffffff" font-size="16" font-weight="700">Client</text>
+    <text x="290" y="29" fill="#d1fae5" font-size="12" font-weight="600" text-anchor="end">clients</text>
+
+    <!-- Fields -->
+    <g transform="translate(16, 68)" font-size="12" fill="#cbd5e1">
+      <g>
+        <rect x="0" y="-12" width="26" height="18" rx="4" fill="#dc2626" />
+        <text x="13" y="1" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">PK</text>
+        <text x="36" y="1" font-weight="600" fill="#f8fafc">_id</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">ObjectId</text>
+      </g>
+      <g transform="translate(0, 26)">
+        <rect x="0" y="-12" width="26" height="18" rx="4" fill="#2563eb" />
+        <text x="13" y="1" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">FK</text>
+        <text x="36" y="1" font-weight="600" fill="#93c5fd">userId</text>
+        <text x="280" y="1" fill="#93c5fd" text-anchor="end">ObjectId -> User</text>
+      </g>
+      <g transform="translate(0, 52)">
+        <text x="36" y="1" font-weight="500">name</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">String (req)</text>
+      </g>
+      <g transform="translate(0, 78)">
+        <text x="36" y="1" font-weight="500">company / email</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">String</text>
+      </g>
+      <g transform="translate(0, 104)">
+        <text x="36" y="1" font-weight="500">phone / website</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">String</text>
+      </g>
+      <g transform="translate(0, 130)">
+        <text x="36" y="1" font-weight="500">status</text>
+        <text x="280" y="1" fill="#34d399" text-anchor="end">Enum (pipeline)</text>
+      </g>
+      <g transform="translate(0, 156)">
+        <text x="36" y="1" font-weight="500">address</text>
+        <text x="280" y="1" fill="#a78bfa" text-anchor="end">Embedded Object</text>
+      </g>
+      <g transform="translate(0, 182)">
+        <text x="36" y="1" font-weight="500">totalBilled / totalPaid</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">Number</text>
+      </g>
+      <g transform="translate(0, 208)">
+        <text x="36" y="1" font-weight="500">tags / notes</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">Array[String]</text>
+      </g>
+      <g transform="translate(0, 234)">
+        <text x="36" y="1" font-weight="500">createdAt / updatedAt</text>
+        <text x="280" y="1" fill="#64748b" text-anchor="end">Timestamps</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== CARD 3: NOTIFICATION ==================== -->
+  <g transform="translate(920, 90)" filter="url(#cardShadow)">
+    <rect width="360" height="280" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <!-- Header -->
+    <rect width="360" height="46" rx="14" fill="url(#notifGrad)" />
+    <rect y="32" width="360" height="14" fill="url(#notifGrad)" />
+    <text x="16" y="29" fill="#ffffff" font-size="16" font-weight="700">Notification</text>
+    <text x="330" y="29" fill="#fef3c7" font-size="12" font-weight="600" text-anchor="end">notifications</text>
+
+    <!-- Fields -->
+    <g transform="translate(16, 68)" font-size="12" fill="#cbd5e1">
+      <g>
+        <rect x="0" y="-12" width="26" height="18" rx="4" fill="#dc2626" />
+        <text x="13" y="1" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">PK</text>
+        <text x="36" y="1" font-weight="600" fill="#f8fafc">_id</text>
+        <text x="310" y="1" fill="#94a3b8" text-anchor="end">ObjectId</text>
+      </g>
+      <g transform="translate(0, 26)">
+        <rect x="0" y="-12" width="26" height="18" rx="4" fill="#2563eb" />
+        <text x="13" y="1" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">FK</text>
+        <text x="36" y="1" font-weight="600" fill="#93c5fd">userId</text>
+        <text x="310" y="1" fill="#93c5fd" text-anchor="end">ObjectId -> User</text>
+      </g>
+      <g transform="translate(0, 52)">
+        <text x="36" y="1" font-weight="500">title / message</text>
+        <text x="310" y="1" fill="#94a3b8" text-anchor="end">String (req)</text>
+      </g>
+      <g transform="translate(0, 78)">
+        <text x="36" y="1" font-weight="500">type</text>
+        <text x="310" y="1" fill="#fbbf24" text-anchor="end">Enum (invoice|task|proj)</text>
+      </g>
+      <g transform="translate(0, 104)">
+        <text x="36" y="1" font-weight="500">link</text>
+        <text x="310" y="1" fill="#94a3b8" text-anchor="end">String</text>
+      </g>
+      <g transform="translate(0, 130)">
+        <text x="36" y="1" font-weight="500">isRead</text>
+        <text x="310" y="1" fill="#4ade80" text-anchor="end">Boolean (def: false)</text>
+      </g>
+      <g transform="translate(0, 156)">
+        <text x="36" y="1" font-weight="500">createdAt</text>
+        <text x="310" y="1" fill="#f59e0b" text-anchor="end">Date (TTL 30 Days)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== CARD 4: INVOICE ==================== -->
+  <g transform="translate(60, 540)" filter="url(#cardShadow)">
+    <rect width="320" height="390" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <!-- Header -->
+    <rect width="320" height="46" rx="14" fill="url(#invGrad)" />
+    <rect y="32" width="320" height="14" fill="url(#invGrad)" />
+    <text x="16" y="29" fill="#ffffff" font-size="16" font-weight="700">Invoice</text>
+    <text x="290" y="29" fill="#ffe4e6" font-size="12" font-weight="600" text-anchor="end">invoices</text>
+
+    <!-- Fields -->
+    <g transform="translate(16, 68)" font-size="12" fill="#cbd5e1">
+      <g>
+        <rect x="0" y="-12" width="26" height="18" rx="4" fill="#dc2626" />
+        <text x="13" y="1" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">PK</text>
+        <text x="36" y="1" font-weight="600" fill="#f8fafc">_id</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">ObjectId</text>
+      </g>
+      <g transform="translate(0, 26)">
+        <rect x="0" y="-12" width="26" height="18" rx="4" fill="#2563eb" />
+        <text x="13" y="1" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">FK</text>
+        <text x="36" y="1" font-weight="600" fill="#93c5fd">userId</text>
+        <text x="280" y="1" fill="#93c5fd" text-anchor="end">ObjectId -> User</text>
+      </g>
+      <g transform="translate(0, 52)">
+        <rect x="0" y="-12" width="26" height="18" rx="4" fill="#2563eb" />
+        <text x="13" y="1" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">FK</text>
+        <text x="36" y="1" font-weight="600" fill="#93c5fd">clientId</text>
+        <text x="280" y="1" fill="#93c5fd" text-anchor="end">ObjectId -> Client</text>
+      </g>
+      <g transform="translate(0, 78)">
+        <rect x="0" y="-12" width="26" height="18" rx="4" fill="#2563eb" />
+        <text x="13" y="1" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">FK</text>
+        <text x="36" y="1" font-weight="500" fill="#93c5fd">projectId (opt)</text>
+        <text x="280" y="1" fill="#93c5fd" text-anchor="end">ObjectId -> Project</text>
+      </g>
+      <g transform="translate(0, 104)">
+        <text x="36" y="1" font-weight="500">invoiceNumber</text>
+        <text x="280" y="1" fill="#38bdf8" text-anchor="end">String (unique)</text>
+      </g>
+      <g transform="translate(0, 130)">
+        <text x="36" y="1" font-weight="500">items</text>
+        <text x="280" y="1" fill="#a78bfa" text-anchor="end">Array[Object] (embed)</text>
+      </g>
+      <g transform="translate(0, 156)">
+        <text x="36" y="1" font-weight="500">subtotal / tax / discount</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">Number</text>
+      </g>
+      <g transform="translate(0, 182)">
+        <text x="36" y="1" font-weight="600" fill="#f43f5e">totalAmount</text>
+        <text x="280" y="1" fill="#f43f5e" text-anchor="end">Number (req)</text>
+      </g>
+      <g transform="translate(0, 208)">
+        <text x="36" y="1" font-weight="500">status</text>
+        <text x="280" y="1" fill="#fbbf24" text-anchor="end">Enum (draft|paid...)</text>
+      </g>
+      <g transform="translate(0, 234)">
+        <text x="36" y="1" font-weight="500">stripePaymentIntentId</text>
+        <text x="280" y="1" fill="#a78bfa" text-anchor="end">String</text>
+      </g>
+      <g transform="translate(0, 260)">
+        <text x="36" y="1" font-weight="500">dueDate / paidAt</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">Date</text>
+      </g>
+      <g transform="translate(0, 286)">
+        <text x="36" y="1" font-weight="500">createdAt / updatedAt</text>
+        <text x="280" y="1" fill="#64748b" text-anchor="end">Timestamps</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== CARD 5: PROJECT ==================== -->
+  <g transform="translate(480, 540)" filter="url(#cardShadow)">
+    <rect width="320" height="390" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <!-- Header -->
+    <rect width="320" height="46" rx="14" fill="url(#projGrad)" />
+    <rect y="32" width="320" height="14" fill="url(#projGrad)" />
+    <text x="16" y="29" fill="#ffffff" font-size="16" font-weight="700">Project</text>
+    <text x="290" y="29" fill="#dbeafe" font-size="12" font-weight="600" text-anchor="end">projects</text>
+
+    <!-- Fields -->
+    <g transform="translate(16, 68)" font-size="12" fill="#cbd5e1">
+      <g>
+        <rect x="0" y="-12" width="26" height="18" rx="4" fill="#dc2626" />
+        <text x="13" y="1" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">PK</text>
+        <text x="36" y="1" font-weight="600" fill="#f8fafc">_id</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">ObjectId</text>
+      </g>
+      <g transform="translate(0, 26)">
+        <rect x="0" y="-12" width="26" height="18" rx="4" fill="#2563eb" />
+        <text x="13" y="1" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">FK</text>
+        <text x="36" y="1" font-weight="600" fill="#93c5fd">userId</text>
+        <text x="280" y="1" fill="#93c5fd" text-anchor="end">ObjectId -> User</text>
+      </g>
+      <g transform="translate(0, 52)">
+        <rect x="0" y="-12" width="26" height="18" rx="4" fill="#2563eb" />
+        <text x="13" y="1" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">FK</text>
+        <text x="36" y="1" font-weight="600" fill="#93c5fd">clientId</text>
+        <text x="280" y="1" fill="#93c5fd" text-anchor="end">ObjectId -> Client</text>
+      </g>
+      <g transform="translate(0, 78)">
+        <text x="36" y="1" font-weight="600" fill="#f8fafc">title</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">String (req)</text>
+      </g>
+      <g transform="translate(0, 104)">
+        <text x="36" y="1" font-weight="500">description</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">String</text>
+      </g>
+      <g transform="translate(0, 130)">
+        <text x="36" y="1" font-weight="500">status</text>
+        <text x="280" y="1" fill="#60a5fa" text-anchor="end">Enum (in_prog...)</text>
+      </g>
+      <g transform="translate(0, 156)">
+        <text x="36" y="1" font-weight="500">priority / pricingType</text>
+        <text x="280" y="1" fill="#fbbf24" text-anchor="end">Enum</text>
+      </g>
+      <g transform="translate(0, 182)">
+        <text x="36" y="1" font-weight="600" fill="#34d399">budget / hourlyRate</text>
+        <text x="280" y="1" fill="#34d399" text-anchor="end">Number</text>
+      </g>
+      <g transform="translate(0, 208)">
+        <text x="36" y="1" font-weight="500">startDate / dueDate</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">Date</text>
+      </g>
+      <g transform="translate(0, 234)">
+        <text x="36" y="1" font-weight="500">attachments</text>
+        <text x="280" y="1" fill="#a78bfa" text-anchor="end">Array[Object]</text>
+      </g>
+      <g transform="translate(0, 260)">
+        <text x="36" y="1" font-weight="500">tags</text>
+        <text x="280" y="1" fill="#94a3b8" text-anchor="end">Array[String]</text>
+      </g>
+      <g transform="translate(0, 286)">
+        <text x="36" y="1" font-weight="500">createdAt / updatedAt</text>
+        <text x="280" y="1" fill="#64748b" text-anchor="end">Timestamps</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== CARD 6: TASK ==================== -->
+  <g transform="translate(920, 540)" filter="url(#cardShadow)">
+    <rect width="360" height="390" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <!-- Header -->
+    <rect width="360" height="46" rx="14" fill="url(#taskGrad)" />
+    <rect y="32" width="360" height="14" fill="url(#taskGrad)" />
+    <text x="16" y="29" fill="#ffffff" font-size="16" font-weight="700">Task</text>
+    <text x="330" y="29" fill="#f3e8ff" font-size="12" font-weight="600" text-anchor="end">tasks</text>
+
+    <!-- Fields -->
+    <g transform="translate(16, 68)" font-size="12" fill="#cbd5e1">
+      <g>
+        <rect x="0" y="-12" width="26" height="18" rx="4" fill="#dc2626" />
+        <text x="13" y="1" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">PK</text>
+        <text x="36" y="1" font-weight="600" fill="#f8fafc">_id</text>
+        <text x="310" y="1" fill="#94a3b8" text-anchor="end">ObjectId</text>
+      </g>
+      <g transform="translate(0, 26)">
+        <rect x="0" y="-12" width="26" height="18" rx="4" fill="#2563eb" />
+        <text x="13" y="1" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">FK</text>
+        <text x="36" y="1" font-weight="600" fill="#93c5fd">userId</text>
+        <text x="310" y="1" fill="#93c5fd" text-anchor="end">ObjectId -> User</text>
+      </g>
+      <g transform="translate(0, 52)">
+        <rect x="0" y="-12" width="26" height="18" rx="4" fill="#2563eb" />
+        <text x="13" y="1" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">FK</text>
+        <text x="36" y="1" font-weight="600" fill="#93c5fd">projectId</text>
+        <text x="310" y="1" fill="#93c5fd" text-anchor="end">ObjectId -> Project</text>
+      </g>
+      <g transform="translate(0, 78)">
+        <text x="36" y="1" font-weight="600" fill="#f8fafc">title</text>
+        <text x="310" y="1" fill="#94a3b8" text-anchor="end">String (req)</text>
+      </g>
+      <g transform="translate(0, 104)">
+        <text x="36" y="1" font-weight="500">description</text>
+        <text x="310" y="1" fill="#94a3b8" text-anchor="end">String</text>
+      </g>
+      <g transform="translate(0, 130)">
+        <text x="36" y="1" font-weight="500">status</text>
+        <text x="310" y="1" fill="#c084fc" text-anchor="end">Enum (todo|in_prog...)</text>
+      </g>
+      <g transform="translate(0, 156)">
+        <text x="36" y="1" font-weight="500">priority</text>
+        <text x="310" y="1" fill="#fbbf24" text-anchor="end">Enum (low|med|high)</text>
+      </g>
+      <g transform="translate(0, 182)">
+        <text x="36" y="1" font-weight="500">dueDate</text>
+        <text x="310" y="1" fill="#94a3b8" text-anchor="end">Date</text>
+      </g>
+      <g transform="translate(0, 208)">
+        <text x="36" y="1" font-weight="500">estimatedHours / actual</text>
+        <text x="310" y="1" fill="#94a3b8" text-anchor="end">Number</text>
+      </g>
+      <g transform="translate(0, 234)">
+        <text x="36" y="1" font-weight="600" fill="#f59e0b">order</text>
+        <text x="310" y="1" fill="#f59e0b" text-anchor="end">Number (Kanban DnD)</text>
+      </g>
+      <g transform="translate(0, 260)">
+        <text x="36" y="1" font-weight="500">isCompleted</text>
+        <text x="310" y="1" fill="#4ade80" text-anchor="end">Boolean (def: false)</text>
+      </g>
+      <g transform="translate(0, 286)">
+        <text x="36" y="1" font-weight="500">createdAt / updatedAt</text>
+        <text x="310" y="1" fill="#64748b" text-anchor="end">Timestamps</text>
+      </g>
+    </g>
+  </g>
+
+</svg>
