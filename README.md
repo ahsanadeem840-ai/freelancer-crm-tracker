@@ -109,35 +109,35 @@ This project is built following an intensive 22-day production roadmap (1 focuse
   - MongoDB Atlas / local connection, schema models implementation
 
 ### Phase 2: Authentication & Security
-- [ ] **Din 4: Auth API & Security Middleware** (Register, Login, JWT verification, Bcrypt hashing)
-- [ ] **Din 5: Role-Based Authorization & Profile Management**
+- [ ] **Din 5: Auth API & Security Middleware** (Register, Login, JWT verification, Bcrypt hashing)
+- [ ] **Din 6: Role-Based Authorization & Profile Management**
 
 ### Phase 3: Client & Project Management
-- [ ] **Din 6: Client CRM CRUD API**
-- [ ] **Din 7: Project Management API**
-- [ ] **Din 8: Task Management & Kanban API**
+- [ ] **Din 7: Client CRM CRUD API**
+- [ ] **Din 8: Project Management API**
+- [ ] **Din 9: Task Management & Kanban API**
 
 ### Phase 4: Financials & Invoicing
-- [ ] **Din 9: Invoice Generation & Line Items API**
-- [ ] **Din 10: Stripe Checkout & Webhooks Integration**
+- [ ] **Din 10: Invoice Generation & Line Items API**
+- [ ] **Din 11: Stripe Checkout & Webhooks Integration**
 
 ### Phase 5: Real-Time Engine
-- [ ] **Din 11: Socket.io Setup & Live Event Handlers**
-- [ ] **Din 12: Notification System & Activity Feeds**
+- [ ] **Din 12: Socket.io Setup & Live Event Handlers**
+- [ ] **Din 13: Notification System & Activity Feeds**
 
 ### Phase 6: Frontend Development (React + Tailwind CSS)
-- [ ] **Din 13: React Boilerplate & Tailwind Theme Setup**
-- [ ] **Din 14: Auth UI & Protected Routes**
-- [ ] **Din 15: Freelancer Dashboard & Analytics Cards**
-- [ ] **Din 16: Client CRM UI & Pipeline View**
-- [ ] **Din 17: Project Tracker & Milestone Overview**
-- [ ] **Din 18: Interactive Kanban Board (Drag & Drop)**
-- [ ] **Din 19: Invoice Builder & Stripe Payment Portal**
-- [ ] **Din 20: Real-time Socket.io Notification Bell & Toast Alerts**
+- [ ] **Din 14: React Boilerplate & Tailwind Theme Setup**
+- [ ] **Din 15: Auth UI & Protected Routes**
+- [ ] **Din 16: Freelancer Dashboard & Analytics Cards**
+- [ ] **Din 17: Client CRM UI & Pipeline View**
+- [ ] **Din 18: Project Tracker & Milestone Overview**
+- [ ] **Din 19: Interactive Kanban Board (Drag & Drop)**
+- [ ] **Din 20: Invoice Builder & Stripe Payment Portal**
+- [ ] **Din 21: Real-time Socket.io Notification Bell & Toast Alerts**
 
 ### Phase 7: Polish, Testing & Deployment
-- [ ] **Din 21: End-to-End Testing & Bug Fixes**
-- [ ] **Din 22: Production Build & Cloud Deployment**
+- [ ] **Din 22: End-to-End Testing & Bug Fixes**
+- [ ] **Din 23: Production Build & Cloud Deployment**
 
 ---
 
@@ -145,12 +145,16 @@ This project is built following an intensive 22-day production roadmap (1 focuse
 
 ```text
 freelancer-crm-tracker/
-├── .gitignore              # Standard ignore list for dependencies & env
-├── README.md               # Project documentation & roadmap tracker
-├── docs/                   # Architectural & technical documentation
-│   └── DATABASE_SCHEMA.md  # Day 1 MongoDB schema blueprint
-├── client/                 # (Upcoming) React + Tailwind CSS Frontend
-└── server/                 # (Upcoming) Node.js + Express Backend
+├── .gitignore                  # Standard ignore list for dependencies & env
+├── README.md                   # Project documentation & roadmap tracker
+├── docs/                       # Architectural & technical documentation
+│   ├── DATABASE_SCHEMA.md      # Din 1 MongoDB schema blueprint
+│   ├── SCHEMA_RELATIONSHIPS.md # Din 2 Relationships & integrity blueprint
+│   ├── schema-diagram.svg      # Din 2 Vector architecture diagram
+│   └── schema-diagram.excalidraw # Din 2 Interactive Excalidraw file
+├── scripts/                    # Automation & architecture generator scripts
+├── client/                     # (Upcoming) React + Tailwind CSS Frontend
+└── server/                     # (Upcoming) Node.js + Express Backend
 ```
 
 ---
