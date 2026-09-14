@@ -103,8 +103,8 @@ This project is built following an intensive 22-day production roadmap (1 focuse
 - [x] **Din 2: Schema Relationships & Visual Diagramming**
   - [x] Collections k beech relationship map karein (`Project -> Tasks`, `Client -> Projects`, etc.) ([docs/SCHEMA_RELATIONSHIPS.md](docs/SCHEMA_RELATIONSHIPS.md))
   - [x] Excalidraw / visual schema diagram banayein ([docs/schema-diagram.excalidraw](docs/schema-diagram.excalidraw), [docs/schema-diagram.svg](docs/schema-diagram.svg))
-- [ ] **Din 3: Backend Setup & Environment Configuration**
-  - Node.js & Express server boilerplate, environment variables, security headers (`helmet`, `cors`)
+- [x] **Din 3: Backend Setup & Environment Configuration**
+  - [x] Node.js & Express server boilerplate, environment variables, security headers (`helmet`, `cors`) ([docs/BACKEND_SETUP.md](docs/BACKEND_SETUP.md))
 - [ ] **Din 4: Database Connection & Mongoose Schemas**
   - MongoDB Atlas / local connection, schema models implementation
 
@@ -147,14 +147,20 @@ This project is built following an intensive 22-day production roadmap (1 focuse
 freelancer-crm-tracker/
 ├── .gitignore                  # Standard ignore list for dependencies & env
 ├── README.md                   # Project documentation & roadmap tracker
+├── package.json                # Root workspace convenience scripts (npm run server)
+├── app.js                      # Root server proxy forwarder
 ├── docs/                       # Architectural & technical documentation
 │   ├── DATABASE_SCHEMA.md      # Din 1 MongoDB schema blueprint
 │   ├── SCHEMA_RELATIONSHIPS.md # Din 2 Relationships & integrity blueprint
+│   ├── BACKEND_SETUP.md        # Din 3 Backend setup & Express architecture
 │   ├── schema-diagram.svg      # Din 2 Vector architecture diagram
 │   └── schema-diagram.excalidraw # Din 2 Interactive Excalidraw file
 ├── scripts/                    # Automation & architecture generator scripts
 ├── client/                     # (Upcoming) React + Tailwind CSS Frontend
-└── server/                     # (Upcoming) Node.js + Express Backend
+└── server/                     # Node.js + Express Backend
+    ├── package.json            # Backend dependencies & lifecycle scripts
+    ├── .env.example            # Environment variables template
+    └── app.js                  # Express application & HTTP server
 ```
 
 ---
@@ -166,13 +172,21 @@ freelancer-crm-tracker/
 - **MongoDB** (Local instance or MongoDB Atlas URI)
 - **Git**
 
-### Installation (Preview)
+### Installation & Running Backend (Din 3)
 ```bash
-# Clone the repository
+# 1. Clone the repository
 git clone https://github.com/ahsanadeem840-ai/freelancer-crm-tracker.git
 
-# Navigate into project directory
+# 2. Navigate into project directory
 cd freelancer-crm-tracker
+
+# 3. Option A: Run directly from root
+npm run server
+
+# 3. Option B: Run from server directory
+cd server
+npm install
+npm run dev
 ```
 
 ---

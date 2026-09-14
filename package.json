@@ -1,0 +1,31 @@
+{
+  "name": "freelancer-crm-tracker",
+  "version": "1.0.0",
+  "description": "A modern, production-ready MERN stack CRM and project management platform built specifically for freelancers and digital agencies.",
+  "main": "server/app.js",
+  "scripts": {
+    "start": "npm --prefix server start",
+    "server": "npm --prefix server run dev",
+    "dev": "npm --prefix server run dev",
+    "test": "npm --prefix server test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahsanadeem840-ai/freelancer-crm-tracker.git"
+  },
+  "keywords": [
+    "mern",
+    "freelancer-crm",
+    "express",
+    "mongodb",
+    "react",
+    "socketio",
+    "stripe"
+  ],
+  "author": "Muhammad Ahsan <ahsanadeem840@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ahsanadeem840-ai/freelancer-crm-tracker/issues"
+  },
+  "homepage": "https://github.com/ahsanadeem840-ai/freelancer-crm-tracker#readme"
+}

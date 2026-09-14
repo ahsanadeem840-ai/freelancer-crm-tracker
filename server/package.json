@@ -1,0 +1,31 @@
+{
+  "name": "freelancer-crm-server",
+  "version": "1.0.0",
+  "description": "Backend REST API server for Freelance CRM & Project Tracker",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "node -e \"console.log('Backend test placeholder passing')\""
+  },
+  "keywords": [
+    "mern",
+    "express",
+    "freelancer-crm",
+    "crm-tracker",
+    "nodejs",
+    "rest-api"
+  ],
+  "author": "Muhammad Ahsan <ahsanadeem840@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "helmet": "^8.3.0",
+    "morgan": "^1.12.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
