@@ -105,8 +105,10 @@ This project is built following an intensive 22-day production roadmap (1 focuse
   - [x] Excalidraw / visual schema diagram banayein ([docs/schema-diagram.excalidraw](docs/schema-diagram.excalidraw), [docs/schema-diagram.svg](docs/schema-diagram.svg))
 - [x] **Din 3: Backend Setup & Environment Configuration**
   - [x] Node.js & Express server boilerplate, environment variables, security headers (`helmet`, `cors`) ([docs/BACKEND_SETUP.md](docs/BACKEND_SETUP.md))
-- [ ] **Din 4: Database Connection & Mongoose Schemas**
-  - MongoDB Atlas / local connection, schema models implementation
+- [x] **Din 4: Database Connection & Mongoose Schemas**
+  - [x] Folder structure banayein: `models`, `routes`, `controllers`, `middleware`
+  - [x] MongoDB Atlas connection with Mongoose ODM & connection lifecycle events ([docs/FOLDER_STRUCTURE_AND_DB.md](docs/FOLDER_STRUCTURE_AND_DB.md))
+  - [x] All 6 Mongoose Schemas compiled (`User`, `Client`, `Project`, `Task`, `Invoice`, `Notification`)
 
 ### Phase 2: Authentication & Security
 - [ ] **Din 5: Auth API & Security Middleware** (Register, Login, JWT verification, Bcrypt hashing)
@@ -153,14 +155,21 @@ freelancer-crm-tracker/
 │   ├── DATABASE_SCHEMA.md      # Din 1 MongoDB schema blueprint
 │   ├── SCHEMA_RELATIONSHIPS.md # Din 2 Relationships & integrity blueprint
 │   ├── BACKEND_SETUP.md        # Din 3 Backend setup & Express architecture
+│   ├── FOLDER_STRUCTURE_AND_DB.md # Din 4 Folder structure & DB setup
 │   ├── schema-diagram.svg      # Din 2 Vector architecture diagram
 │   └── schema-diagram.excalidraw # Din 2 Interactive Excalidraw file
 ├── scripts/                    # Automation & architecture generator scripts
 ├── client/                     # (Upcoming) React + Tailwind CSS Frontend
 └── server/                     # Node.js + Express Backend
-    ├── package.json            # Backend dependencies & lifecycle scripts
+    ├── package.json            # Backend dependencies (express, mongoose, etc.)
+    ├── .env                    # Local environment secrets (Git-ignored)
     ├── .env.example            # Environment variables template
-    └── app.js                  # Express application & HTTP server
+    ├── app.js                  # Main Express application & HTTP server
+    ├── config/                 # DB connection configuration (db.js)
+    ├── models/                 # Mongoose schemas (User, Client, Project, Task, Invoice, Notification)
+    ├── controllers/            # Controller business logic
+    ├── routes/                 # Express API routes (/api/auth, /api/clients, etc.)
+    └── middleware/             # Error handlers and auth guards
 ```
 
 ---
