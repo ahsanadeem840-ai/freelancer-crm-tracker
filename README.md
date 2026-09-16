@@ -111,7 +111,11 @@ This project is built following an intensive 22-day production roadmap (1 focuse
   - [x] All 6 Mongoose Schemas compiled (`User`, `Client`, `Project`, `Task`, `Invoice`, `Notification`)
 
 ### Phase 2: Authentication & Security
-- [ ] **Din 5: Auth API & Security Middleware** (Register, Login, JWT verification, Bcrypt hashing)
+- [x] **Din 5: User Model & Signup API**
+  - [x] User Mongoose schema with data validation, roles, and timestamps ([docs/USER_MODEL_AND_SIGNUP_API.md](docs/USER_MODEL_AND_SIGNUP_API.md))
+  - [x] Bcrypt password hashing pre-save hook & `matchPassword` instance method
+  - [x] Signup / Registration REST API (`POST /api/auth/register`, `/signup`) with JWT token issuance
+  - [x] Automated 18-point verification test suite (`npm test`)
 - [ ] **Din 6: Role-Based Authorization & Profile Management**
 
 ### Phase 3: Client & Project Management

@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema(
   {
@@ -23,7 +25,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please provide a password'],
       minlength: [6, 'Password must be at least 6 characters long'],
-      select: false, // Do not return password by default in queries
+      select: false, // Exclude password from query results by default
     },
     role: {
       type: String,
@@ -79,11 +81,61 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: {
+      transform(doc, ret) {
+        delete ret.password;
+        delete ret.__v;
+        return ret;
+      },
+    },
+    toObject: {
+      transform(doc, ret) {
+        delete ret.password;
+        delete ret.__v;
+        return ret;
+      },
+    },
   }
 );
 
 // Email unique index
 userSchema.index({ email: 1 }, { unique: true });
+
+// ==========================================
+// Mongoose Pre-Save Hook: Bcrypt Password Hash
+// ==========================================
+userSchema.pre('save', async function () {
+  // Only hash password if it has been created or modified
+  if (!this.isModified('password')) {
+    return;
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+// ==========================================
+// Instance Method: Compare/Match Password
+// ==========================================
+userSchema.methods.matchPassword = async function (enteredPassword) {
+  // Since password field is select: false, ensure this.password is populated before comparing
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
+// ==========================================
+// Instance Method: Generate Signed JWT Token
+// ==========================================
+userSchema.methods.generateAuthToken = function () {
+  const payload = {
+    id: this._id,
+    role: this.role,
+  };
+
+  const secret = process.env.JWT_SECRET || 'freelancer_crm_secret_key_default';
+  const expiresIn = process.env.JWT_EXPIRE || '30d';
+
+  return jwt.sign(payload, secret, { expiresIn });
+};
 
 const User = mongoose.model('User', userSchema);
 

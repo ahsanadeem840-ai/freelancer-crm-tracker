@@ -86,7 +86,7 @@ app.get('/', (req, res) => {
     message: 'Welcome to Freelance CRM & Project Tracker API',
     version: '1.0.0',
     status: 'online',
-    roadmapDay: 'Din 4: Folder Structure & DB Connect',
+    roadmapDay: 'Din 5: User Model + Signup API',
     documentation: 'https://github.com/ahsanadeem840-ai/freelancer-crm-tracker',
     database: getDbStatus(),
     endpoints: {
@@ -155,7 +155,7 @@ if (require.main === module) {
     console.log(`🚀 Server Running on: http://localhost:${PORT}`);
     console.log(`🏥 Health Check:      http://localhost:${PORT}/api/health`);
     console.log(`⚙️  Environment:       ${NODE_ENV}`);
-    console.log(`📅 Roadmap Progress:  Din 4 - Folder Structure + DB Connect`);
+    console.log(`📅 Roadmap Progress:  Din 5 - User Model + Signup API`);
     console.log(`📂 Modular Structure: models, routes, controllers, middleware`);
     console.log(`==================================================\n`);
   });
