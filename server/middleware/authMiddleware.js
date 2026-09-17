@@ -63,7 +63,11 @@ const authorize = (...roles) => {
   };
 };
 
+// verifyToken is an alias for protect middleware for flexibility
+const verifyToken = protect;
+
 module.exports = {
   protect,
+  verifyToken,
   authorize,
 };

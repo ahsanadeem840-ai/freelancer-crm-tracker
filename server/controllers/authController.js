@@ -102,10 +102,10 @@ const register = async (req, res, next) => {
 // @access  Public
 const login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body || {};
 
     // Validate email and password presence
-    if (!email || !password) {
+    if (!email || !password || !String(email).trim()) {
       return res.status(400).json({
         success: false,
         message: 'Please provide email and password',

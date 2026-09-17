@@ -9,6 +9,7 @@ router.post('/signup', register);
 
 // Public login route
 router.post('/login', login);
+router.post('/signin', login);
 
 // Protected user profile route
 router.get('/me', protect, getMe);

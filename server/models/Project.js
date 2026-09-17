@@ -101,7 +101,7 @@ const projectSchema = new mongoose.Schema(
 
 // Indexes
 projectSchema.index({ userId: 1, status: 1 });
-projectSchema.index({ clientId: 1 });
+
 
 const Project = mongoose.model('Project', projectSchema);
 

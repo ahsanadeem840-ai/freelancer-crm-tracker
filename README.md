@@ -115,8 +115,11 @@ This project is built following an intensive 22-day production roadmap (1 focuse
   - [x] User Mongoose schema with data validation, roles, and timestamps ([docs/USER_MODEL_AND_SIGNUP_API.md](docs/USER_MODEL_AND_SIGNUP_API.md))
   - [x] Bcrypt password hashing pre-save hook & `matchPassword` instance method
   - [x] Signup / Registration REST API (`POST /api/auth/register`, `/signup`) with JWT token issuance
-  - [x] Automated 18-point verification test suite (`npm test`)
-- [ ] **Din 6: Role-Based Authorization & Profile Management**
+- [x] **Din 6: Login API + JWT**
+  - [x] Login API banayein (`POST /api/auth/login`, `POST /api/auth/signin`) ([docs/LOGIN_API_AND_JWT.md](docs/LOGIN_API_AND_JWT.md))
+  - [x] JWT token generate karein aur verify middleware likhein (`protect` & `verifyToken`)
+  - [x] Role-based access control guard (`authorize`) & user profile endpoint (`GET /api/auth/me`)
+  - [x] Automated 23-point verification test suite (`npm run test:day6`)
 
 ### Phase 3: Client & Project Management
 - [ ] **Din 7: Client CRM CRUD API**
@@ -160,6 +163,8 @@ freelancer-crm-tracker/
 │   ├── SCHEMA_RELATIONSHIPS.md # Din 2 Relationships & integrity blueprint
 │   ├── BACKEND_SETUP.md        # Din 3 Backend setup & Express architecture
 │   ├── FOLDER_STRUCTURE_AND_DB.md # Din 4 Folder structure & DB setup
+│   ├── USER_MODEL_AND_SIGNUP_API.md # Din 5 User model & Signup API
+│   ├── LOGIN_API_AND_JWT.md    # Din 6 Login API & JWT verification middleware
 │   ├── schema-diagram.svg      # Din 2 Vector architecture diagram
 │   └── schema-diagram.excalidraw # Din 2 Interactive Excalidraw file
 ├── scripts/                    # Automation & architecture generator scripts

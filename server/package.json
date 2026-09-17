@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "node tests/verify_day5.js"
+    "test": "node tests/verify_day6.js",
+    "test:day5": "node tests/verify_day5.js",
+    "test:day6": "node tests/verify_day6.js",
+    "test:all": "node tests/verify_day5.js && node tests/verify_day6.js"
   },
   "keywords": [
     "mern",
