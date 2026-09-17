@@ -155,7 +155,7 @@ if (require.main === module) {
     console.log(`🚀 Server Running on: http://localhost:${PORT}`);
     console.log(`🏥 Health Check:      http://localhost:${PORT}/api/health`);
     console.log(`⚙️  Environment:       ${NODE_ENV}`);
-    console.log(`📅 Roadmap Progress:  Din 5 - User Model + Signup API`);
+    console.log(`📅 Roadmap Progress:  Din 6 - Login API + JWT Authentication`);
     console.log(`📂 Modular Structure: models, routes, controllers, middleware`);
     console.log(`==================================================\n`);
   });
