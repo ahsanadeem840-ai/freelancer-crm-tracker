@@ -7,7 +7,10 @@
     "start": "npm --prefix server start",
     "server": "npm --prefix server run dev",
     "dev": "npm --prefix server run dev",
-    "test": "npm --prefix server test"
+    "test": "npm --prefix server test",
+    "test:day5": "npm --prefix server run test:day5",
+    "test:day6": "npm --prefix server run test:day6",
+    "test:all": "npm --prefix server run test:all"
   },
   "repository": {
     "type": "git",

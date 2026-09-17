@@ -207,6 +207,17 @@ npm install
 npm run dev
 ```
 
+### Running Automated Tests
+```bash
+# Run latest tests directly from workspace root
+npm test
+
+# Run specific roadmap day test suites
+npm run test:day5    # User Model & Signup API (22 tests)
+npm run test:day6    # Login API & JWT Middleware (23 tests)
+npm run test:all     # Full end-to-end test suite (45 tests)
+```
+
 ---
 
 ## 🔒 Security Best Practices
