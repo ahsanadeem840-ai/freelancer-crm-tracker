@@ -3,8 +3,8 @@ const { User } = require('../models');
 // Email regex pattern for validation
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-// Allowed roles
-const ALLOWED_ROLES = ['freelancer', 'agency_owner', 'team_member'];
+// Allowed roles (Updated in Din 7 for RBAC: admin and client added)
+const ALLOWED_ROLES = ['admin', 'client', 'freelancer', 'agency_owner', 'team_member'];
 
 // @desc    Register / Signup a new user
 // @route   POST /api/auth/register, POST /api/auth/signup

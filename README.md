@@ -87,6 +87,11 @@ erDiagram
 > 📄 **Detailed Documentation & Diagrams:**
 > - [Database Planning & Schema Specs (Din 1)](docs/DATABASE_SCHEMA.md)
 > - [Schema Relationships & Integrity Blueprint (Din 2)](docs/SCHEMA_RELATIONSHIPS.md)
+> - [Backend Setup & Server Initialization (Din 3)](docs/BACKEND_SETUP.md)
+> - [Folder Structure & MongoDB Connection (Din 4)](docs/FOLDER_STRUCTURE_AND_DB.md)
+> - [User Model & Signup API (Din 5)](docs/USER_MODEL_AND_SIGNUP_API.md)
+> - [Login API & JWT Verification (Din 6)](docs/LOGIN_API_AND_JWT.md)
+> - [Role-Based Access Control & Middleware (Din 7)](docs/ROLE_BASED_ACCESS_CONTROL.md)
 > - [Interactive Excalidraw Diagram File](docs/schema-diagram.excalidraw) (Open on [excalidraw.com](https://excalidraw.com))
 > - [High-Resolution SVG Vector Diagram](docs/schema-diagram.svg)
 
@@ -119,12 +124,17 @@ This project is built following an intensive 22-day production roadmap (1 focuse
   - [x] Login API banayein (`POST /api/auth/login`, `POST /api/auth/signin`) ([docs/LOGIN_API_AND_JWT.md](docs/LOGIN_API_AND_JWT.md))
   - [x] JWT token generate karein aur verify middleware likhein (`protect` & `verifyToken`)
   - [x] Role-based access control guard (`authorize`) & user profile endpoint (`GET /api/auth/me`)
-  - [x] Automated 23-point verification test suite (`npm run test:day6`)
+  - [x] Automated 14-point verification test suite (`npm run test:day6`)
+- [x] **Din 7: Role-Based Access Control (RBAC)**
+  - [x] Admin aur Client role field add karein in User schema (`admin`, `client`, `freelancer`, `agency_owner`, `team_member`)
+  - [x] Middleware banayein jo route ko role k hisaab se protect kare (`authorize`, `checkRole`, `isAdmin`, `isClient`, `isAdminOrClient`) ([docs/ROLE_BASED_ACCESS_CONTROL.md](docs/ROLE_BASED_ACCESS_CONTROL.md))
+  - [x] Role-protected route guards (`/admin-dashboard`, `/client-portal`, `/admin-or-client`, `/clients`)
+  - [x] Automated 29-point verification test suite (`npm run test:day7`)
 
 ### Phase 3: Client & Project Management
-- [ ] **Din 7: Client CRM CRUD API**
-- [ ] **Din 8: Project Management API**
-- [ ] **Din 9: Task Management & Kanban API**
+- [ ] **Din 8: Client CRM CRUD API**
+- [ ] **Din 9: Project Management API**
+- [ ] **Din 10: Task Management & Kanban API**
 
 ### Phase 4: Financials & Invoicing
 - [ ] **Din 10: Invoice Generation & Line Items API**

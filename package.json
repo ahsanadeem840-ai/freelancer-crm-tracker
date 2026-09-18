@@ -10,6 +10,7 @@
     "test": "npm --prefix server test",
     "test:day5": "npm --prefix server run test:day5",
     "test:day6": "npm --prefix server run test:day6",
+    "test:day7": "npm --prefix server run test:day7",
     "test:all": "npm --prefix server run test:all"
   },
   "repository": {
