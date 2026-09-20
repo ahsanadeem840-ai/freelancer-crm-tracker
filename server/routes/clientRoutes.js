@@ -1,11 +1,38 @@
 const express = require('express');
 const router = express.Router();
-const { getClients, createClient } = require('../controllers/clientController');
+const {
+  getClients,
+  getClientById,
+  createClient,
+  updateClient,
+  deleteClient,
+  getClientStats,
+} = require('../controllers/clientController');
 const { protect, authorize } = require('../middleware/authMiddleware');
 
+/**
+ * All client management routes require an authenticated user with
+ * permissions to manage CRM clients ('admin', 'agency_owner', or 'freelancer').
+ * Users with 'client' role cannot access these endpoints.
+ */
+router.use(protect);
+router.use(authorize('admin', 'agency_owner', 'freelancer'));
+
+// Pipeline summary stats (registered before /:id to prevent route collision)
+router.get('/stats', getClientStats);
+
+// Collection endpoints: List & Create
 router
   .route('/')
-  .get(protect, authorize('admin', 'agency_owner', 'freelancer'), getClients)
-  .post(protect, authorize('admin', 'agency_owner'), createClient);
+  .get(getClients)
+  .post(createClient);
+
+// Individual resource endpoints: Get by ID, Update (PUT/PATCH), Delete
+router
+  .route('/:id')
+  .get(getClientById)
+  .put(updateClient)
+  .patch(updateClient)
+  .delete(deleteClient);
 
 module.exports = router;
