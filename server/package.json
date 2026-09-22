@@ -6,12 +6,13 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "node tests/verify_day8.js",
+    "test": "node tests/verify_day9.js",
     "test:day5": "node tests/verify_day5.js",
     "test:day6": "node tests/verify_day6.js",
     "test:day7": "node tests/verify_day7.js",
     "test:day8": "node tests/verify_day8.js",
-    "test:all": "node tests/verify_day5.js && node tests/verify_day6.js && node tests/verify_day7.js && node tests/verify_day8.js"
+    "test:day9": "node tests/verify_day9.js",
+    "test:all": "node tests/verify_day5.js && node tests/verify_day6.js && node tests/verify_day7.js && node tests/verify_day8.js && node tests/verify_day9.js"
   },
   "keywords": [
     "mern",

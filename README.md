@@ -92,6 +92,8 @@ erDiagram
 > - [User Model & Signup API (Din 5)](docs/USER_MODEL_AND_SIGNUP_API.md)
 > - [Login API & JWT Verification (Din 6)](docs/LOGIN_API_AND_JWT.md)
 > - [Role-Based Access Control & Middleware (Din 7)](docs/ROLE_BASED_ACCESS_CONTROL.md)
+> - [Client CRUD API & CRM Pipeline (Din 8)](docs/CLIENT_CRUD_API.md)
+> - [Project CRUD API & Client Linking (Din 9)](docs/PROJECT_CRUD_API.md)
 > - [Interactive Excalidraw Diagram File](docs/schema-diagram.excalidraw) (Open on [excalidraw.com](https://excalidraw.com))
 > - [High-Resolution SVG Vector Diagram](docs/schema-diagram.svg)
 
@@ -132,8 +134,16 @@ This project is built following an intensive 22-day production roadmap (1 focuse
   - [x] Automated 29-point verification test suite (`npm run test:day7`)
 
 ### Phase 3: Client & Project Management
-- [ ] **Din 8: Client CRM CRUD API**
-- [ ] **Din 9: Project Management API**
+- [x] **Din 8: Client CRM CRUD API**
+  - [x] Client model, validation rules, address schema & pipeline statuses (`lead`, `prospect`, `active`, `inactive`)
+  - [x] Multi-tenant CRUD endpoints (`POST /api/clients`, `GET /api/clients`, `GET /api/clients/:id`, `PUT/PATCH`, `DELETE`)
+  - [x] CRM pipeline analytics & financial totals (`GET /api/clients/stats`) ([docs/CLIENT_CRUD_API.md](docs/CLIENT_CRUD_API.md))
+  - [x] Automated 36-point test suite (`npm run test:day8`) & Postman suite ([postman/Freelancer_CRM_Day8_Clients.postman_collection.json](postman/Freelancer_CRM_Day8_Clients.postman_collection.json))
+- [x] **Din 9: Project Management API**
+  - [x] Project create, update, delete, list APIs with multi-tenancy & pagination (`/api/projects`)
+  - [x] Client se Project ka relation link karein (`clientId` validation & multi-tenant check, `GET /api/clients/:id/projects`)
+  - [x] Project pipeline statistics & financial metrics (`GET /api/projects/stats`) ([docs/PROJECT_CRUD_API.md](docs/PROJECT_CRUD_API.md))
+  - [x] Automated 51-point test suite (`npm run test:day9`) & Postman suite ([postman/Freelancer_CRM_Day9_Projects.postman_collection.json](postman/Freelancer_CRM_Day9_Projects.postman_collection.json))
 - [ ] **Din 10: Task Management & Kanban API**
 
 ### Phase 4: Financials & Invoicing
@@ -225,7 +235,10 @@ npm test
 # Run specific roadmap day test suites
 npm run test:day5    # User Model & Signup API (22 tests)
 npm run test:day6    # Login API & JWT Middleware (23 tests)
-npm run test:all     # Full end-to-end test suite (45 tests)
+npm run test:day7    # Role-Based Access Control - RBAC (29 tests)
+npm run test:day8    # Client CRM CRUD API & Pipeline (36 tests)
+npm run test:day9    # Project CRUD API & Client Linking (51 tests)
+npm run test:all     # Full end-to-end test suite (161 tests)
 ```
 
 ---

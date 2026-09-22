@@ -1,7 +1,38 @@
 const express = require('express');
 const router = express.Router();
-const { getProjects } = require('../controllers/projectController');
+const {
+  getProjects,
+  getProjectById,
+  createProject,
+  updateProject,
+  deleteProject,
+  getProjectStats,
+} = require('../controllers/projectController');
+const { protect, authorize } = require('../middleware/authMiddleware');
 
-router.route('/').get(getProjects);
+/**
+ * All project management routes require an authenticated user with
+ * permissions to manage projects ('admin', 'agency_owner', or 'freelancer').
+ * Users with 'client' role cannot access these endpoints.
+ */
+router.use(protect);
+router.use(authorize('admin', 'agency_owner', 'freelancer'));
+
+// Project pipeline analytics & financial stats (registered before /:id to prevent route collision)
+router.get('/stats', getProjectStats);
+
+// Collection endpoints: List & Create
+router
+  .route('/')
+  .get(getProjects)
+  .post(createProject);
+
+// Individual resource endpoints: Get by ID, Update (PUT/PATCH), Delete
+router
+  .route('/:id')
+  .get(getProjectById)
+  .put(updateProject)
+  .patch(updateProject)
+  .delete(deleteProject);
 
 module.exports = router;

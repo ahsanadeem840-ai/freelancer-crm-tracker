@@ -7,6 +7,7 @@ const {
   updateClient,
   deleteClient,
   getClientStats,
+  getClientProjects,
 } = require('../controllers/clientController');
 const { protect, authorize } = require('../middleware/authMiddleware');
 
@@ -26,6 +27,9 @@ router
   .route('/')
   .get(getClients)
   .post(createClient);
+
+// Client Projects relationship endpoint (registered before /:id to prevent ambiguity)
+router.get('/:id/projects', getClientProjects);
 
 // Individual resource endpoints: Get by ID, Update (PUT/PATCH), Delete
 router

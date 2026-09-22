@@ -86,7 +86,7 @@ app.get('/', (req, res) => {
     message: 'Welcome to Freelance CRM & Project Tracker API',
     version: '1.0.0',
     status: 'online',
-    roadmapDay: 'Din 8: Client CRUD API (Full CRM Pipeline)',
+    roadmapDay: 'Din 9: Project CRUD API (Client-Project Relationship & Pipeline Stats)',
     documentation: 'https://github.com/ahsanadeem840-ai/freelancer-crm-tracker',
     database: getDbStatus(),
     endpoints: {
