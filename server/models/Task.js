@@ -62,6 +62,10 @@ const taskSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    tags: {
+      type: [String],
+      default: [],
+    },
   },
   {
     timestamps: true,
@@ -71,13 +75,13 @@ const taskSchema = new mongoose.Schema(
 // Indexes
 taskSchema.index({ projectId: 1, status: 1, order: 1 });
 taskSchema.index({ userId: 1, dueDate: 1 });
+taskSchema.index({ projectId: 1, userId: 1 });
 
 // Auto-sync isCompleted boolean when status is 'done'
-taskSchema.pre('save', function (next) {
+taskSchema.pre('save', function () {
   if (this.isModified('status')) {
     this.isCompleted = this.status === 'done';
   }
-  next();
 });
 
 const Task = mongoose.model('Task', taskSchema);

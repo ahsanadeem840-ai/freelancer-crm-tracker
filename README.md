@@ -94,6 +94,7 @@ erDiagram
 > - [Role-Based Access Control & Middleware (Din 7)](docs/ROLE_BASED_ACCESS_CONTROL.md)
 > - [Client CRUD API & CRM Pipeline (Din 8)](docs/CLIENT_CRUD_API.md)
 > - [Project CRUD API & Client Linking (Din 9)](docs/PROJECT_CRUD_API.md)
+> - [Task CRUD API & Project Linking (Din 10)](docs/TASK_CRUD_API.md)
 > - [Interactive Excalidraw Diagram File](docs/schema-diagram.excalidraw) (Open on [excalidraw.com](https://excalidraw.com))
 > - [High-Resolution SVG Vector Diagram](docs/schema-diagram.svg)
 
@@ -144,29 +145,34 @@ This project is built following an intensive 22-day production roadmap (1 focuse
   - [x] Client se Project ka relation link karein (`clientId` validation & multi-tenant check, `GET /api/clients/:id/projects`)
   - [x] Project pipeline statistics & financial metrics (`GET /api/projects/stats`) ([docs/PROJECT_CRUD_API.md](docs/PROJECT_CRUD_API.md))
   - [x] Automated 51-point test suite (`npm run test:day9`) & Postman suite ([postman/Freelancer_CRM_Day9_Projects.postman_collection.json](postman/Freelancer_CRM_Day9_Projects.postman_collection.json))
-- [ ] **Din 10: Task Management & Kanban API**
+- [x] **Din 10: Task Management & Kanban API**
+  - [x] Task create, update, delete, list APIs with multi-tenancy & pagination (`/api/tasks`)
+  - [x] Task ko Project se link karein, status field add karein (`projectId` validation & multi-tenant check, `GET /api/projects/:id/tasks`)
+  - [x] Kanban batch drag-and-drop column & order reordering (`PUT /api/tasks/reorder`)
+  - [x] Task pipeline statistics & productivity metrics (`GET /api/tasks/stats`) ([docs/TASK_CRUD_API.md](docs/TASK_CRUD_API.md))
+  - [x] Automated 55-point test suite (`npm run test:day10`) & Postman suite ([postman/Freelancer_CRM_Day10_Tasks.postman_collection.json](postman/Freelancer_CRM_Day10_Tasks.postman_collection.json))
 
 ### Phase 4: Financials & Invoicing
-- [ ] **Din 10: Invoice Generation & Line Items API**
-- [ ] **Din 11: Stripe Checkout & Webhooks Integration**
+- [ ] **Din 11: Invoice Generation & Line Items API**
+- [ ] **Din 12: Stripe Checkout & Webhooks Integration**
 
 ### Phase 5: Real-Time Engine
-- [ ] **Din 12: Socket.io Setup & Live Event Handlers**
-- [ ] **Din 13: Notification System & Activity Feeds**
+- [ ] **Din 13: Socket.io Setup & Live Event Handlers**
+- [ ] **Din 14: Notification System & Activity Feeds**
 
 ### Phase 6: Frontend Development (React + Tailwind CSS)
-- [ ] **Din 14: React Boilerplate & Tailwind Theme Setup**
-- [ ] **Din 15: Auth UI & Protected Routes**
-- [ ] **Din 16: Freelancer Dashboard & Analytics Cards**
-- [ ] **Din 17: Client CRM UI & Pipeline View**
-- [ ] **Din 18: Project Tracker & Milestone Overview**
-- [ ] **Din 19: Interactive Kanban Board (Drag & Drop)**
-- [ ] **Din 20: Invoice Builder & Stripe Payment Portal**
-- [ ] **Din 21: Real-time Socket.io Notification Bell & Toast Alerts**
+- [ ] **Din 15: React Boilerplate & Tailwind Theme Setup**
+- [ ] **Din 16: Auth UI & Protected Routes**
+- [ ] **Din 17: Freelancer Dashboard & Analytics Cards**
+- [ ] **Din 18: Client CRM UI & Pipeline View**
+- [ ] **Din 19: Project Tracker & Milestone Overview**
+- [ ] **Din 20: Interactive Kanban Board (Drag & Drop)**
+- [ ] **Din 21: Invoice Builder & Stripe Payment Portal**
+- [ ] **Din 22: Real-time Socket.io Notification Bell & Toast Alerts**
 
 ### Phase 7: Polish, Testing & Deployment
-- [ ] **Din 22: End-to-End Testing & Bug Fixes**
-- [ ] **Din 23: Production Build & Cloud Deployment**
+- [ ] **Din 23: End-to-End Testing & Bug Fixes**
+- [ ] **Din 24: Production Build & Cloud Deployment**
 
 ---
 
@@ -185,9 +191,14 @@ freelancer-crm-tracker/
 │   ├── FOLDER_STRUCTURE_AND_DB.md # Din 4 Folder structure & DB setup
 │   ├── USER_MODEL_AND_SIGNUP_API.md # Din 5 User model & Signup API
 │   ├── LOGIN_API_AND_JWT.md    # Din 6 Login API & JWT verification middleware
+│   ├── ROLE_BASED_ACCESS_CONTROL.md # Din 7 RBAC & security middleware
+│   ├── CLIENT_CRUD_API.md      # Din 8 Client CRUD API & CRM pipeline
+│   ├── PROJECT_CRUD_API.md     # Din 9 Project CRUD API & Client linking
+│   ├── TASK_CRUD_API.md        # Din 10 Task CRUD API, Project linking & Kanban
 │   ├── schema-diagram.svg      # Din 2 Vector architecture diagram
 │   └── schema-diagram.excalidraw # Din 2 Interactive Excalidraw file
 ├── scripts/                    # Automation & architecture generator scripts
+├── postman/                    # Postman collection test suites (Day 8, 9, 10)
 ├── client/                     # (Upcoming) React + Tailwind CSS Frontend
 └── server/                     # Node.js + Express Backend
     ├── package.json            # Backend dependencies (express, mongoose, etc.)
@@ -197,8 +208,9 @@ freelancer-crm-tracker/
     ├── config/                 # DB connection configuration (db.js)
     ├── models/                 # Mongoose schemas (User, Client, Project, Task, Invoice, Notification)
     ├── controllers/            # Controller business logic
-    ├── routes/                 # Express API routes (/api/auth, /api/clients, etc.)
-    └── middleware/             # Error handlers and auth guards
+    ├── routes/                 # Express API routes (/api/auth, /api/clients, /api/projects, /api/tasks)
+    ├── middleware/             # Error handlers and auth guards
+    └── tests/                  # Verification test suites (verify_day5 to verify_day10)
 ```
 
 ---
@@ -238,7 +250,8 @@ npm run test:day6    # Login API & JWT Middleware (23 tests)
 npm run test:day7    # Role-Based Access Control - RBAC (29 tests)
 npm run test:day8    # Client CRM CRUD API & Pipeline (36 tests)
 npm run test:day9    # Project CRUD API & Client Linking (51 tests)
-npm run test:all     # Full end-to-end test suite (161 tests)
+npm run test:day10   # Task CRUD API & Project Linking (55 tests)
+npm run test:all     # Full end-to-end test suite (216 tests)
 ```
 
 ---

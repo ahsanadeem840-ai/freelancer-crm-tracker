@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Project, Client } = require('../models');
+const { Project, Client, Task } = require('../models');
 
 // Allowed enums matching Project schema
 const ALLOWED_STATUSES = [
@@ -674,6 +674,88 @@ const getProjectStats = async (req, res, next) => {
   }
 };
 
+// ============================================================================
+// 7. Get all tasks for a specific project (Project -> Tasks relationship)
+// ============================================================================
+// @desc    Get all tasks linked to a project
+// @route   GET /api/projects/:id/tasks
+// @access  Private (admin, agency_owner, freelancer)
+const getProjectTasks = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        success: false,
+        message: `Invalid project ID format: ${id}`,
+      });
+    }
+
+    const project = await Project.findById(id);
+
+    if (!project) {
+      return res.status(404).json({
+        success: false,
+        message: `Project not found with id: ${id}`,
+      });
+    }
+
+    // Multi-tenancy authorization check
+    if (
+      req.user.role !== 'admin' &&
+      String(project.userId) !== String(req.user._id)
+    ) {
+      return res.status(403).json({
+        success: false,
+        message: 'Not authorized to access tasks for this project.',
+      });
+    }
+
+    const filter = { projectId: project._id };
+    if (req.user.role !== 'admin') {
+      filter.userId = req.user._id;
+    }
+
+    if (req.query.status) {
+      filter.status = req.query.status;
+    }
+
+    if (req.query.priority) {
+      filter.priority = req.query.priority;
+    }
+
+    const sort = req.query.sort || 'order -createdAt';
+    const isFetchAll = req.query.all === 'true' || req.query.limit === '0';
+    const page = Math.max(1, parseInt(req.query.page, 10) || 1);
+    const limit = isFetchAll
+      ? 500
+      : Math.min(100, Math.max(1, parseInt(req.query.limit, 10) || 20));
+    const skip = isFetchAll ? 0 : (page - 1) * limit;
+
+    const [total, tasks] = await Promise.all([
+      Task.countDocuments(filter),
+      Task.find(filter).sort(sort).skip(skip).limit(limit).lean(),
+    ]);
+
+    res.status(200).json({
+      success: true,
+      project: {
+        _id: project._id,
+        title: project.title,
+        status: project.status,
+        priority: project.priority,
+      },
+      count: tasks.length,
+      total,
+      page: isFetchAll ? 1 : page,
+      pages: isFetchAll ? 1 : Math.ceil(total / limit) || 1,
+      data: tasks,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getProjects,
   getProjectById,
@@ -681,4 +763,5 @@ module.exports = {
   updateProject,
   deleteProject,
   getProjectStats,
+  getProjectTasks,
 };
