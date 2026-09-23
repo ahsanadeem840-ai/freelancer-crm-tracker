@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Client, Project } = require('../models');
+const { Client, Project, Invoice } = require('../models');
 
 // Email regex pattern for validation
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -560,6 +560,88 @@ const getClientProjects = async (req, res, next) => {
   }
 };
 
+// ============================================================================
+// 8. Get all invoices for a specific client (Relationship endpoint)
+// ============================================================================
+// @desc    Get all invoices linked to a client
+// @route   GET /api/clients/:id/invoices
+// @access  Private (admin, agency_owner, freelancer)
+const getClientInvoices = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        success: false,
+        message: `Invalid client ID format: ${id}`,
+      });
+    }
+
+    const client = await Client.findById(id);
+
+    if (!client) {
+      return res.status(404).json({
+        success: false,
+        message: `Client not found with id: ${id}`,
+      });
+    }
+
+    // Multi-tenancy authorization check
+    if (
+      req.user.role !== 'admin' &&
+      String(client.userId) !== String(req.user._id)
+    ) {
+      return res.status(403).json({
+        success: false,
+        message: 'Not authorized to access invoices for this client.',
+      });
+    }
+
+    const filter = { clientId: client._id };
+    if (req.user.role !== 'admin') {
+      filter.userId = req.user._id;
+    }
+
+    if (req.query.status) {
+      filter.status = req.query.status;
+    }
+
+    const page = Math.max(1, parseInt(req.query.page, 10) || 1);
+    const limit = Math.min(100, Math.max(1, parseInt(req.query.limit, 10) || 10));
+    const skip = (page - 1) * limit;
+    const sort = req.query.sort || '-issueDate -createdAt';
+
+    const [total, invoices] = await Promise.all([
+      Invoice.countDocuments(filter),
+      Invoice.find(filter)
+        .populate('projectId', 'title status')
+        .sort(sort)
+        .skip(skip)
+        .limit(limit)
+        .lean(),
+    ]);
+
+    res.status(200).json({
+      success: true,
+      client: {
+        _id: client._id,
+        name: client.name,
+        company: client.company,
+        currency: client.currency,
+        totalBilled: client.totalBilled,
+        totalPaid: client.totalPaid,
+      },
+      count: invoices.length,
+      total,
+      page,
+      pages: Math.ceil(total / limit) || 1,
+      data: invoices,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getClients,
   getClientById,
@@ -568,4 +650,5 @@ module.exports = {
   deleteClient,
   getClientStats,
   getClientProjects,
+  getClientInvoices,
 };

@@ -1,0 +1,580 @@
+{
+  "info": {
+    "_postman_id": "freelancer-crm-day11-invoices-and-e2e",
+    "name": "Freelancer CRM - Din 11: Invoice API + Full Backend Test",
+    "description": "Comprehensive Postman test suite for Din 11: Invoice generation, line items auto-calculation, financial analytics, client balance sync, relationship endpoints, and full end-to-end backend verification across all CRM modules (Auth, Clients, Projects, Tasks, Invoices).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "clientId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "projectId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "taskId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "invoiceId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "invoiceNumber",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "00 - Server Health & Authentication",
+      "item": [
+        {
+          "name": "1. Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "health"]
+            }
+          }
+        },
+        {
+          "name": "2. Register Freelancer (Auto-Saves Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set(\"token\", jsonData.token);",
+                  "    console.log(\"Saved JWT Bearer Token to {{token}}\");",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ahsan Adeem\",\n  \"email\": \"freelancer_day11@example.com\",\n  \"password\": \"SecurePass123!\",\n  \"role\": \"freelancer\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "3. Login Freelancer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 200\", function () {",
+                  "    pm.expect(pm.response.code).to.equal(200);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set(\"token\", jsonData.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"freelancer_day11@example.com\",\n  \"password\": \"SecurePass123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "4. Get Current User Profile (Me)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "me"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "01 - Client Management",
+      "item": [
+        {
+          "name": "1. Create Client (Auto-Saves clientId)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Client created with 201\", function () {",
+                  "    pm.expect(pm.response.code).to.equal(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.data && jsonData.data._id) {",
+                  "    pm.collectionVariables.set(\"clientId\", jsonData.data._id);",
+                  "    console.log(\"Saved clientId:\", jsonData.data._id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sophia Vance\",\n  \"company\": \"Vance Enterprises LLC\",\n  \"email\": \"sophia@vance.com\",\n  \"phone\": \"+1-555-432-8765\",\n  \"currency\": \"USD\",\n  \"status\": \"active\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/clients",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clients"]
+            }
+          }
+        },
+        {
+          "name": "2. Get All Clients",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/clients",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clients"]
+            }
+          }
+        },
+        {
+          "name": "3. Get Client by ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/clients/{{clientId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clients", "{{clientId}}"]
+            }
+          }
+        },
+        {
+          "name": "4. Get Client Pipeline Stats",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/clients/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clients", "stats"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - Project Management",
+      "item": [
+        {
+          "name": "1. Create Project (Auto-Saves projectId)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Project created with 201\", function () {",
+                  "    pm.expect(pm.response.code).to.equal(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.data && jsonData.data._id) {",
+                  "    pm.collectionVariables.set(\"projectId\", jsonData.data._id);",
+                  "    console.log(\"Saved projectId:\", jsonData.data._id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clientId\": \"{{clientId}}\",\n  \"title\": \"Cloud Migration & AI Dashboard\",\n  \"budget\": 6500,\n  \"pricingType\": \"fixed\",\n  \"priority\": \"high\",\n  \"status\": \"in_progress\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/projects",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "projects"]
+            }
+          }
+        },
+        {
+          "name": "2. Get All Projects",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/projects",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "projects"]
+            }
+          }
+        },
+        {
+          "name": "3. Get Project Stats",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/projects/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "projects", "stats"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - Task Management & Kanban",
+      "item": [
+        {
+          "name": "1. Create Task linked to Project",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Task created with 201\", function () {",
+                  "    pm.expect(pm.response.code).to.equal(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.data && jsonData.data._id) {",
+                  "    pm.collectionVariables.set(\"taskId\", jsonData.data._id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"projectId\": \"{{projectId}}\",\n  \"title\": \"Implement Stripe Payment Webhook\",\n  \"priority\": \"urgent\",\n  \"status\": \"todo\",\n  \"estimatedHours\": 12\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tasks",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tasks"]
+            }
+          }
+        },
+        {
+          "name": "2. Get Project Tasks",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/projects/{{projectId}}/tasks",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "projects", "{{projectId}}", "tasks"]
+            }
+          }
+        },
+        {
+          "name": "3. Complete Task (Moves to done)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"done\",\n  \"actualHours\": 11.5\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tasks/{{taskId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tasks", "{{taskId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Invoice API & Billing (Din 11 Core)",
+      "item": [
+        {
+          "name": "1. Generate Invoice (POST /api/invoices/generate)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Invoice generated with 201 Created\", function () {",
+                  "    pm.expect(pm.response.code).to.equal(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.data && jsonData.data._id) {",
+                  "    pm.collectionVariables.set(\"invoiceId\", jsonData.data._id);",
+                  "    pm.collectionVariables.set(\"invoiceNumber\", jsonData.data.invoiceNumber);",
+                  "    console.log(\"Saved invoiceId:\", jsonData.data._id);",
+                  "    console.log(\"Saved invoiceNumber:\", jsonData.data.invoiceNumber);",
+                  "}",
+                  "pm.test(\"Calculations match subtotal + tax - discount\", function () {",
+                  "    var inv = jsonData.data;",
+                  "    pm.expect(inv.subtotal).to.be.a('number');",
+                  "    pm.expect(inv.totalAmount).to.be.a('number');",
+                  "    pm.expect(inv.totalAmount).to.equal(inv.subtotal + inv.taxAmount - inv.discount);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clientId\": \"{{clientId}}\",\n  \"projectId\": \"{{projectId}}\",\n  \"items\": [\n    {\n      \"description\": \"Sprint 1: Architecture & Cloud Setup\",\n      \"quantity\": 1,\n      \"unitPrice\": 2500\n    },\n    {\n      \"description\": \"Sprint 2: Dashboard Frontend & API Integration\",\n      \"quantity\": 1,\n      \"unitPrice\": 3000\n    }\n  ],\n  \"taxRate\": 10,\n  \"discount\": 250,\n  \"currency\": \"USD\",\n  \"notes\": \"Due upon invoice receipt. Thank you for your business!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/invoices/generate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "invoices", "generate"]
+            }
+          }
+        },
+        {
+          "name": "2. Get All Invoices (Paginated & Multi-Tenant)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/invoices?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "invoices"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "3. Filter Invoices by Status (?status=draft)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/invoices?status=draft",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "invoices"],
+              "query": [{ "key": "status", "value": "draft" }]
+            }
+          }
+        },
+        {
+          "name": "4. Filter Invoices by Client (?clientId=...)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/invoices?clientId={{clientId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "invoices"],
+              "query": [{ "key": "clientId", "value": "{{clientId}}" }]
+            }
+          }
+        },
+        {
+          "name": "5. Get Single Invoice by ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/invoices/{{invoiceId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "invoices", "{{invoiceId}}"]
+            }
+          }
+        },
+        {
+          "name": "6. Update Invoice Details (PUT /api/invoices/:id)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"Updated terms: Net 15 days\",\n  \"taxRate\": 8\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/invoices/{{invoiceId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "invoices", "{{invoiceId}}"]
+            }
+          }
+        },
+        {
+          "name": "7. Transition Invoice Status to Paid (PATCH /api/invoices/:id/status)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status updated to paid with 200 OK\", function () {",
+                  "    pm.expect(pm.response.code).to.equal(200);",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.data.status).to.equal('paid');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"paid\",\n  \"paymentMethod\": \"stripe\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/invoices/{{invoiceId}}/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "invoices", "{{invoiceId}}", "status"]
+            }
+          }
+        },
+        {
+          "name": "8. Get Invoices for Client (GET /api/clients/:id/invoices)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/clients/{{clientId}}/invoices",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clients", "{{clientId}}", "invoices"]
+            }
+          }
+        },
+        {
+          "name": "9. Get Invoices for Project (GET /api/projects/:id/invoices)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/projects/{{projectId}}/invoices",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "projects", "{{projectId}}", "invoices"]
+            }
+          }
+        },
+        {
+          "name": "10. Get Invoice Financial Analytics (GET /api/invoices/stats)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Stats returned successfully with 200\", function () {",
+                  "    pm.expect(pm.response.code).to.equal(200);",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.data).to.have.property('financials');",
+                  "    pm.expect(json.data).to.have.property('statusCounts');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/invoices/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "invoices", "stats"]
+            }
+          }
+        },
+        {
+          "name": "11. Delete Invoice (DELETE /api/invoices/:id)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/invoices/{{invoiceId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "invoices", "{{invoiceId}}"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

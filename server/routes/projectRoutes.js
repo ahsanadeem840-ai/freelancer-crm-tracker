@@ -8,6 +8,7 @@ const {
   deleteProject,
   getProjectStats,
   getProjectTasks,
+  getProjectInvoices,
 } = require('../controllers/projectController');
 const { protect, authorize } = require('../middleware/authMiddleware');
 
@@ -28,8 +29,9 @@ router
   .get(getProjects)
   .post(createProject);
 
-// Project Tasks relationship endpoint (registered before /:id to prevent ambiguity)
+// Project Tasks & Invoices relationship endpoints (registered before /:id to prevent ambiguity)
 router.get('/:id/tasks', getProjectTasks);
+router.get('/:id/invoices', getProjectInvoices);
 
 // Individual resource endpoints: Get by ID, Update (PUT/PATCH), Delete
 router

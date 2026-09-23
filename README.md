@@ -95,6 +95,7 @@ erDiagram
 > - [Client CRUD API & CRM Pipeline (Din 8)](docs/CLIENT_CRUD_API.md)
 > - [Project CRUD API & Client Linking (Din 9)](docs/PROJECT_CRUD_API.md)
 > - [Task CRUD API & Project Linking (Din 10)](docs/TASK_CRUD_API.md)
+> - [Invoice API & Full Backend Test (Din 11)](docs/INVOICE_API_AND_FULL_BACKEND_TEST.md)
 > - [Interactive Excalidraw Diagram File](docs/schema-diagram.excalidraw) (Open on [excalidraw.com](https://excalidraw.com))
 > - [High-Resolution SVG Vector Diagram](docs/schema-diagram.svg)
 
@@ -153,7 +154,14 @@ This project is built following an intensive 22-day production roadmap (1 focuse
   - [x] Automated 55-point test suite (`npm run test:day10`) & Postman suite ([postman/Freelancer_CRM_Day10_Tasks.postman_collection.json](postman/Freelancer_CRM_Day10_Tasks.postman_collection.json))
 
 ### Phase 4: Financials & Invoicing
-- [ ] **Din 11: Invoice Generation & Line Items API**
+- [x] **Din 11: Invoice Generation & Line Items API + Full Backend Test**
+  - [x] Invoice model aur basic generate API banayein (`POST /api/invoices/generate`, `POST /api/invoices`)
+  - [x] Line items, tax rate, discount aur total calculation pre-validate hook
+  - [x] Client financial balances reconciliation (`totalBilled` & `totalPaid`)
+  - [x] Relationship endpoints: `GET /api/clients/:id/invoices` & `GET /api/projects/:id/invoices`
+  - [x] Financial analytics & summary (`GET /api/invoices/stats`) ([docs/INVOICE_API_AND_FULL_BACKEND_TEST.md](docs/INVOICE_API_AND_FULL_BACKEND_TEST.md))
+  - [x] Sab APIs ko Postman se dobara end-to-end test karein ([postman/Freelancer_CRM_Day11_Invoices_And_E2E.postman_collection.json](postman/Freelancer_CRM_Day11_Invoices_And_E2E.postman_collection.json))
+  - [x] Automated 75-point test suite (`npm run test:day11`)
 - [ ] **Din 12: Stripe Checkout & Webhooks Integration**
 
 ### Phase 5: Real-Time Engine
@@ -251,7 +259,8 @@ npm run test:day7    # Role-Based Access Control - RBAC (29 tests)
 npm run test:day8    # Client CRM CRUD API & Pipeline (36 tests)
 npm run test:day9    # Project CRUD API & Client Linking (51 tests)
 npm run test:day10   # Task CRUD API & Project Linking (55 tests)
-npm run test:all     # Full end-to-end test suite (216 tests)
+npm run test:day11   # Invoice API & Full Backend Test (75 tests)
+npm run test:all     # Full end-to-end regression test suite (291 tests)
 ```
 
 ---
