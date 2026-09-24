@@ -14,7 +14,8 @@
     "test:day9": "node tests/verify_day9.js",
     "test:day10": "node tests/verify_day10.js",
     "test:day11": "node tests/verify_day11.js",
-    "test:all": "node tests/verify_day5.js && node tests/verify_day6.js && node tests/verify_day7.js && node tests/verify_day8.js && node tests/verify_day9.js && node tests/verify_day10.js && node tests/verify_day11.js"
+    "test:day12": "node tests/verify_day12.js",
+    "test:all": "node tests/verify_day5.js && node tests/verify_day6.js && node tests/verify_day7.js && node tests/verify_day8.js && node tests/verify_day9.js && node tests/verify_day10.js && node tests/verify_day11.js && node tests/verify_day12.js"
   },
   "keywords": [
     "mern",

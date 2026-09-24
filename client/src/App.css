@@ -1,0 +1,10 @@
+/* Component-level helper styles */
+.fade-enter {
+  opacity: 0;
+  transform: translateY(4px);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms, transform 200ms;
+}
