@@ -86,7 +86,7 @@ app.get('/', (req, res) => {
     message: 'Welcome to Freelance CRM & Project Tracker API',
     version: '1.0.0',
     status: 'online',
-    roadmapDay: 'Din 11: Invoice API + Full Backend Test (Invoice Generation, Financial Stats & E2E Testing)',
+    roadmapDay: 'Din 12: React App Setup & React Router (Vite, React 19, React Router v7 & Dark Theme UI)',
     documentation: 'https://github.com/ahsanadeem840-ai/freelancer-crm-tracker',
     database: getDbStatus(),
     endpoints: {
@@ -155,7 +155,8 @@ if (require.main === module) {
     console.log(`🚀 Server Running on: http://localhost:${PORT}`);
     console.log(`🏥 Health Check:      http://localhost:${PORT}/api/health`);
     console.log(`⚙️  Environment:       ${NODE_ENV}`);
-    console.log(`📅 Roadmap Progress:  Din 11 - Invoice API & Full Backend Test`);
+    console.log(`📅 Roadmap Progress:  Din 12 - React App Setup & React Router`);
+    console.log(`🌐 Frontend Client:   http://localhost:5173 (Run: npm run client)`);
     console.log(`📂 Modular Structure: models, routes, controllers, middleware`);
     console.log(`==================================================\n`);
   });

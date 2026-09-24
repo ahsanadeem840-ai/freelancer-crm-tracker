@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "node tests/verify_day11.js",
+    "test": "node tests/verify_day12.js",
     "test:day5": "node tests/verify_day5.js",
     "test:day6": "node tests/verify_day6.js",
     "test:day7": "node tests/verify_day7.js",
