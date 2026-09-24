@@ -4,7 +4,9 @@
 
 **A modern, production-ready MERN stack CRM and project management platform built specifically for freelancers and digital agencies.**
 
-[![GitHub Repo stars](https://img.shields.io/badge/Status-Active%20Development-brightgreen?style=for-the-badge)](https://github.com/ahsanadeem840-ai/freelancer-crm-tracker)
+[![Status](https://img.shields.io/badge/Status-Active%20Development-brightgreen?style=for-the-badge)](https://github.com/ahsanadeem840-ai/freelancer-crm-tracker)
+[![Roadmap Progress](https://img.shields.io/badge/Roadmap%20Progress-Day%2012%20of%2022%20(55%25)-6366f1?style=for-the-badge)](docs/REACT_APP_SETUP_AND_ROUTER.md)
+[![Tests Passing](https://img.shields.io/badge/Tests-353%2F353%20Passing-10b981?style=for-the-badge)](server/tests)
 [![MERN Stack](https://img.shields.io/badge/Stack-MERN%20%2B%20Socket.io%20%2B%20Stripe-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
@@ -105,6 +107,26 @@ erDiagram
 ## 📅 22-Day Development Roadmap
 
 This project is built following an intensive 22-day production roadmap (1 focused task per day):
+
+### 📊 Roadmap Progress Tracker
+`Current Progress: 12 of 22 Days (55%) Completed`
+
+```text
+Progress: [██████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░] 55%
+```
+
+| Phase | Roadmap Days | Module Focus | Test Coverage | Status |
+| :--- | :---: | :--- | :---: | :---: |
+| **Phase 1: Planning & Architecture** | Din 1 - 4 | Database planning, ER diagrams, Express & MongoDB connection | All 6 Schemas | ✅ Complete |
+| **Phase 2: Authentication & Security** | Din 5 - 7 | User model, Signup, Login JWT & 5-role RBAC guards | 74 Tests | ✅ Complete |
+| **Phase 3: Client & Project Management** | Din 8 - 10 | Multi-tenant Client CRM, Projects & Kanban Board | 142 Tests | ✅ Complete |
+| **Phase 4: Financials & Invoicing** | Din 11 | Invoice model, auto-generation, line items & client balances | 75 Tests | ✅ Complete |
+| **Phase 5: Frontend React SPA** | Din 12 | Vite React 19 app, React Router v7 routes & dark theme UI | 62 Tests | ✅ Complete |
+| **Phase 6: Real-Time Engine** | Din 13 - 14 | Socket.io server, live event handlers & notification feeds | Upcoming | ⏳ Next Up |
+| **Phase 7: Fullstack Feature Integration** | Din 15 - 21 | Auth state, Client CRM UI, Drag-Drop Kanban, Stripe | Upcoming | ⏳ Pending |
+| **Phase 8: Polish & Production Launch** | Din 22 | End-to-end testing, production bundle & cloud deployment | Full System | ⏳ Pending |
+
+---
 
 ### Phase 1: Planning & Architecture
 - [x] **Din 1: Database Planning**
