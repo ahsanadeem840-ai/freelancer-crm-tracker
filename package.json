@@ -16,6 +16,7 @@
     "test:day10": "npm --prefix server run test:day10",
     "test:day11": "npm --prefix server run test:day11",
     "test:day12": "npm --prefix server run test:day12",
+    "test:day13": "npm --prefix server run test:day13",
     "test:all": "npm --prefix server run test:all",
     "client": "npm --prefix client run dev",
     "client:build": "npm --prefix client run build",

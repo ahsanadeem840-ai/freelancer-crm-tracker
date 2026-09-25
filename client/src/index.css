@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* ==========================================================================
    FreelanceFlow CRM - Design System & Global Styles
    ========================================================================== */
@@ -60,13 +62,7 @@
   --transition-smooth: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Base Reset */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
+/* Base Reset & Tailwind Compatibility */
 html, body {
   height: 100%;
   font-family: var(--font-sans);
@@ -76,6 +72,16 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+/* Fix browser autofill styling in dark mode */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #090d16 inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 #root {

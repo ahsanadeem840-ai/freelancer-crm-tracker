@@ -13,6 +13,7 @@ import {
   ChevronRight,
   AlertCircle
 } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 const stats = [
   {
@@ -76,6 +77,11 @@ const recentInvoices = [
 ];
 
 export default function Dashboard() {
+  const { user } = useAuth();
+
+  // Extract first name or fallback to full name/User
+  const displayName = user?.name ? (user.name.split(' ')[0] || user.name) : 'User';
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       
@@ -94,7 +100,7 @@ export default function Dashboard() {
             <Sparkles size={16} /> Command Center Overview
           </div>
           <h2 style={{ fontSize: '1.65rem', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', margin: 0 }}>
-            Welcome back, Ahsan! 🚀
+            Welcome back, {displayName}! 🚀
           </h2>
           <p style={{ color: '#94a3b8', fontSize: '0.92rem' }}>
             Here is what is happening across your clients, project pipelines, and pending Stripe invoices today. All systems are operating smoothly.

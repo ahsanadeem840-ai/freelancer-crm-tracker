@@ -8,27 +8,43 @@ import {
   ShieldCheck, 
   Sparkles,
   KeyRound,
+  Eye,
+  EyeOff,
+  AlertCircle,
+  Loader2,
+  Briefcase
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [success, setSuccess] = useState(false);
 
-  const handleDemoFill = (demoEmail, demoRole) => {
+  // Demo credential autofill helper
+  const handleDemoFill = (demoEmail) => {
     setEmail(demoEmail);
     setPassword('Secret123!');
+    setErrorMsg('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      setErrorMsg('Please enter both email and password.');
+      return;
+    }
+
     setLoading(true);
     setErrorMsg('');
+
     try {
       const res = await login(email, password);
       if (res && res.success) {
@@ -36,161 +52,192 @@ export default function Login() {
         setTimeout(() => {
           navigate('/');
         }, 800);
+      } else {
+        setErrorMsg('Invalid login credentials.');
       }
     } catch (err) {
-      setErrorMsg(err.response?.data?.message || 'Login failed. Please check credentials.');
+      const message = err.response?.data?.message || err.message || 'Authentication failed. Please verify credentials.';
+      setErrorMsg(message);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={{
-      maxWidth: '480px',
-      margin: '2rem auto',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '1.5rem',
-    }}>
-      
-      {/* Header */}
-      <div style={{ textAlign: 'center' }}>
-        <div style={{
-          display: 'inline-flex',
-          padding: '0.75rem',
-          borderRadius: '16px',
-          background: 'var(--primary-gradient)',
-          color: '#fff',
-          boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)',
-          marginBottom: '1rem',
-        }}>
-          <KeyRound size={28} />
-        </div>
-        <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', margin: 0 }}>
-          Welcome back
-        </h2>
-        <p style={{ color: '#94a3b8', fontSize: '0.88rem', marginTop: '0.35rem' }}>
-          Sign in to your FreelanceFlow CRM workspace (Day 6 JWT Auth)
-        </p>
+    <div className="min-h-[85vh] flex items-center justify-center px-4 py-12">
+      {/* Background Decorative Blur Spheres */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center">
+        <div className="w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-3xl -translate-y-12"></div>
+        <div className="w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-3xl translate-x-32 translate-y-24"></div>
       </div>
 
-      {/* Main Glass Card Form */}
-      <div className="glass-card" style={{ padding: '2rem' }}>
-        {success ? (
-          <div style={{
-            textAlign: 'center',
-            padding: '2rem 1rem',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '1rem',
-          }}>
-            <div style={{
-              width: '56px',
-              height: '56px',
-              borderRadius: '50%',
-              background: 'rgba(16, 185, 129, 0.2)',
-              color: '#10b981',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-              <ShieldCheck size={32} />
-            </div>
-            <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#fff', margin: 0 }}>Authentication Verified!</h3>
-            <p style={{ color: '#94a3b8', fontSize: '0.85rem' }}>Redirecting to your command dashboard...</p>
+      <div className="relative w-full max-w-lg mx-auto">
+        
+        {/* Top Brand Header */}
+        <div className="text-center mb-8">
+          <div className="inline-flex p-3.5 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 text-white shadow-xl shadow-indigo-500/20 mb-4">
+            <KeyRound className="w-8 h-8" />
           </div>
-        ) : (
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            
-            <div className="form-group" style={{ margin: 0 }}>
-              <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <Mail size={14} color="#818cf8" /> Email Address
-              </label>
-              <input
-                type="email"
-                required
-                className="form-control"
-                placeholder="name@domain.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
+          <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+            Welcome back
+          </h2>
+          <p className="text-sm text-slate-400 mt-2">
+            Sign in to manage your clients, projects &amp; invoices
+          </p>
+        </div>
 
-            <div className="form-group" style={{ margin: 0 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                  <Lock size={14} color="#818cf8" /> Password
-                </label>
-                <a href="#forgot" onClick={(e) => { e.preventDefault(); alert('Password reset will be available with full auth!'); }} style={{ fontSize: '0.75rem', color: '#818cf8' }}>
-                  Forgot password?
-                </a>
+        {/* Card Container */}
+        <div className="backdrop-blur-xl bg-slate-900/90 border border-slate-800 rounded-2xl shadow-2xl p-6 sm:p-10">
+          
+          {success ? (
+            <div className="py-10 text-center flex flex-col items-center gap-4">
+              <div className="w-16 h-16 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center animate-bounce">
+                <ShieldCheck className="w-8 h-8" />
               </div>
-              <input
-                type="password"
-                required
-                className="form-control"
-                placeholder="••••••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div>
+                <h3 className="text-xl font-bold text-white">Authenticated Successfully!</h3>
+                <p className="text-sm text-slate-400 mt-1">Preparing your CRM command dashboard...</p>
+              </div>
             </div>
-
-            <button type="submit" className="btn-primary" style={{ width: '100%', padding: '0.75rem', marginTop: '0.5rem' }} disabled={loading}>
-              {loading ? (
-                <span>Signing in...</span>
-              ) : (
-                <>
-                  <span>Sign In to Dashboard</span>
-                  <ArrowRight size={16} />
-                </>
+          ) : (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              
+              {/* Error Alert Banner */}
+              {errorMsg && (
+                <div className="flex items-center gap-3 p-4 text-sm rounded-xl bg-rose-500/10 border border-rose-500/25 text-rose-400">
+                  <AlertCircle className="w-5 h-5 shrink-0" />
+                  <span>{errorMsg}</span>
+                </div>
               )}
-            </button>
 
-            {/* Quick Demo Credentials Autofill */}
-            <div style={{
-              marginTop: '1rem',
-              paddingTop: '1rem',
-              borderTop: '1px solid var(--border-subtle)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.5rem',
-            }}>
-              <span style={{ fontSize: '0.72rem', color: '#64748b', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.05em' }}>
-                Quick Test Credentials (Day 6 Seed)
-              </span>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <button
-                  type="button"
-                  onClick={() => handleDemoFill('freelancer@test.com', 'Freelancer')}
-                  className="btn-secondary btn-sm"
-                  style={{ flex: 1, fontSize: '0.75rem' }}
-                >
-                  Freelancer Demo
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleDemoFill('admin@test.com', 'Admin')}
-                  className="btn-secondary btn-sm"
-                  style={{ flex: 1, fontSize: '0.75rem' }}
-                >
-                  Admin Demo
-                </button>
+              {/* Email Input */}
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                  Email Address
+                </label>
+                <div className="relative flex items-center">
+                  <Mail className="w-5 h-5 absolute left-3.5 text-slate-500 pointer-events-none" />
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="freelancer@example.com"
+                    className="w-full h-12 pl-11 pr-4 bg-slate-950/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                  />
+                </div>
               </div>
-            </div>
 
-          </form>
-        )}
+              {/* Password Input */}
+              <div className="flex flex-col gap-2">
+                <div className="flex justify-between items-center">
+                  <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                    Password
+                  </label>
+                  <a
+                    href="#forgot"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      alert('Password recovery is available via standard reset email.');
+                    }}
+                    className="text-xs font-medium text-indigo-400 hover:text-indigo-300 transition-colors"
+                  >
+                    Forgot password?
+                  </a>
+                </div>
+                <div className="relative flex items-center">
+                  <Lock className="w-5 h-5 absolute left-3.5 text-slate-500 pointer-events-none" />
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••••••"
+                    className="w-full h-12 pl-11 pr-11 bg-slate-950/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3.5 p-1 text-slate-500 hover:text-slate-300 transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Remember Me Checkbox */}
+              <div className="flex items-center justify-between pt-1">
+                <label className="flex items-center gap-2.5 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    className="w-4 h-4 rounded bg-slate-950 border-slate-800 text-indigo-600 focus:ring-indigo-500 focus:ring-offset-0 cursor-pointer"
+                  />
+                  <span className="text-xs text-slate-400">Remember my session</span>
+                </label>
+                <span className="text-xs text-emerald-400 font-medium">JWT Secure</span>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full h-12 px-4 mt-2 flex items-center justify-center gap-2 rounded-xl text-white font-semibold text-sm bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 hover:from-indigo-600 hover:via-purple-700 hover:to-pink-600 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transform active:scale-[0.99] transition-all disabled:opacity-60 cursor-pointer"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <span>Signing In...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Sign In to Dashboard</span>
+                    <ArrowRight className="w-5 h-5" />
+                  </>
+                )}
+              </button>
+
+              {/* 1-Click Demo Credentials */}
+              <div className="pt-5 mt-2 border-t border-slate-800/80">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                    Quick Demo Credentials
+                  </span>
+                  <span className="text-[11px] text-slate-400 font-mono">Pass: Secret123!</span>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => handleDemoFill('freelancer@test.com')}
+                    className="py-2 px-3 text-xs font-medium rounded-xl bg-slate-800/70 hover:bg-slate-800 border border-slate-700/60 text-slate-300 hover:text-white transition-all cursor-pointer text-center"
+                  >
+                    Freelancer Demo
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDemoFill('admin@test.com')}
+                    className="py-2 px-3 text-xs font-medium rounded-lg bg-slate-800/70 hover:bg-slate-800 border border-slate-700/60 text-slate-300 hover:text-white transition-all cursor-pointer text-center"
+                  >
+                    Admin Demo
+                  </button>
+                </div>
+              </div>
+
+            </form>
+          )}
+
+        </div>
+
+        {/* Footer Link */}
+        <p className="text-center text-sm text-slate-400 mt-8">
+          Don't have an account yet?{' '}
+          <Link to="/register" className="font-semibold text-indigo-400 hover:text-indigo-300 transition-colors">
+            Create an account
+          </Link>
+        </p>
+
       </div>
-
-      {/* Switch to Register */}
-      <div style={{ textAlign: 'center', fontSize: '0.85rem', color: '#94a3b8' }}>
-        Don't have an account yet?{' '}
-        <Link to="/register" style={{ color: '#818cf8', fontWeight: 600 }}>
-          Create an account
-        </Link>
-      </div>
-
     </div>
   );
 }
